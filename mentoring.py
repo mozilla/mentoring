@@ -3,10 +3,11 @@ import sys
 
 def common(row):
     row['tz'] = '<ul>' + ''.join('<li>' + t.split('(')[0] + '</li>' for t in row['Time Availability'].split('.')) + '</ul>'
+    row['howlong'] = row.get('How long have you been in your current level', row.get('How long have you been in your organization level'))
     rv = '''
 <li><em>Time Availability:</em> {tz}</li>
 <li><em>Organizational Level:</em> {org}</li>
-<li><em>At Level:</em> {How long have you been in your organization level}</li>
+<li><em>At Level:</em> {howlong}</li>
 <li><em>Organization:</em> {Organization}</li>
 '''.format(**row)
     if row.get('Interest in changing career track'):
@@ -48,7 +49,7 @@ def learner(row):
 def main():
     print("<html><body>")
     for row in csv.DictReader(sys.stdin):
-        row['name'] = row['Full Name']
+        row['name'] = row.get('Full Name', row.get('Full name'))
         row['org'] = row['Organizational level (i.e. P3, M2, etc.)']
         if 'Interested in improving' in row:
             row['ml'] = 'Learner'
