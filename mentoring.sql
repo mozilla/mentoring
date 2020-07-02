@@ -48,4 +48,7 @@ create table pairs (
 
   -- date this pairing started
   start_date timestamptz not null,
+
+  -- date this pairing is scheduled to end
+  end_date timestamptz not null,
 );
