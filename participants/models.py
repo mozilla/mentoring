@@ -33,6 +33,9 @@ class Participant(models.Model):
     full_name = models.CharField(null=False, max_length=512, help_text=dedent('''\
         The participant's full name (as they would prefer to be called).'''))
 
+    manager = models.CharField(null=False, max_length=512, help_text=dedent('''\
+        The participant's manager's name.'''))
+
     manager_email = models.EmailField(null=False, help_text=dedent('''\
         The participant's manager's email address.  This is used to verify approval. '''))
 
@@ -64,11 +67,20 @@ class Participant(models.Model):
         # TODO: add a validator
         )
 
+    track_change = models.BooleanField(null=True, help_text=dedent('''\
+        Whether the participant is interested in changing tracks (between IC and Manager)'''))
+
     org_chart_distance = models.CharField(
         max_length=20,
         null=True,
         blank=False,
         help_text=dedent('''Preference for a pairing nearby or distant in the org chart (open text)''')
+        )
+
+    comments = models.TextField(
+        null=False,
+        blank=True,
+        help_text=dedent('''Open comments from the participant's enrollment'''),
         )
 
     class Meta:
