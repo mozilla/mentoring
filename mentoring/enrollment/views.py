@@ -8,6 +8,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.core.exceptions import SuspiciousOperation
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 
 from ..participants.models import Participant
 
@@ -61,11 +62,10 @@ def parse_form(form):
 
 
 
+@require_http_methods(["POST"])
 @csrf_exempt
 def webhook(request):
     '''A webhook reuqest from Alchemer.'''
-    if request.method != 'POST':
-        raise SuspiciousOperation("webhooks must be POSTed")
     if request.content_type != 'application/x-www-form-urlencoded':
         raise SuspiciousOperation("webhooks must be of content-type application/x-www-form-urlencoded")
 
