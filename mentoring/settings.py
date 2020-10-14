@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Project-specific confit
+
+# days to retain user data
+DATA_RETENTION_DAYS = 180
 
 # Application definition
 
@@ -71,6 +75,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mentoring.wsgi.application'
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases

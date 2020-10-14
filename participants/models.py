@@ -10,7 +10,7 @@ class Participant(models.Model):
     LEARNER = 'L'
 
     def __str__(self):
-        return self.full_name
+        return f'{self.full_name} ({self.role})'
 
     expires = models.DateTimeField(null=False, help_text=dedent('''\
         The date that this information expires.  This can be extended (such as when
@@ -67,7 +67,7 @@ class Participant(models.Model):
         # TODO: add a validator
         )
 
-    track_change = models.BooleanField(null=True, help_text=dedent('''\
+    track_change = models.CharField(null=True, max_length=64, help_text=dedent('''\
         Whether the participant is interested in changing tracks (between IC and Manager)'''))
 
     org_chart_distance = models.CharField(
