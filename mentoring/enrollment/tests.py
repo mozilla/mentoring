@@ -5,7 +5,7 @@ from urllib.parse import urlencode
 from django.test import TestCase
 from django.test import Client
 
-from participants.models import Participant
+from ..participants.models import Participant
 from .views import time_availability
 
 class TimeAvailabilityTest(TestCase):

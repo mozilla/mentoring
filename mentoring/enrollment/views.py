@@ -9,7 +9,7 @@ from django.http import HttpResponse
 from django.core.exceptions import SuspiciousOperation
 from django.views.decorators.csrf import csrf_exempt
 
-from participants.models import Participant
+from ..participants.models import Participant
 
 logger = logging.getLogger(__name__)
 
