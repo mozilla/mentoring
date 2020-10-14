@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script langage="javascript">
+const update_pair = () => {
+    // TODO: update a "proposed pair" display at the top
+};
+document.onload=update_pair;
+</script>
+<h1>Pairing!</h1>
+<form method="POST" action="{% url 'make-pair' %}">
+    {% csrf_token %}
+    <input type="submit" value="Pair!" />
+    <div style="clear: all" />
+    <div style="float: left; width: 50%;">
+        <h2>Mentors</h2>
+        {% for mentor in mentors %}
+            <h3><input type="radio" name="mentor" value="{{ mentor.pk }}" onclick="update_pair()" />
+                {{ mentor.full_name }}</h3>
+            {% include "pairing/participant.html" with participant=mentor %}
+        {% endfor %}
+    </div>
+    <div style="float: left; width: 50%;">
+        <h2>Learners</h2>
+        {% for learner in learners %}
+            <h3><input type="radio" name="learner" value="{{ learner.pk }}" onclick="update_pair()" />
+                {{ learner.full_name }}</h3>
+            {% include "pairing/participant.html" with participant=learner %}
+        {% endfor %}
+    </div>
+</form>
+{% endblock %}

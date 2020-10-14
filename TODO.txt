@@ -7,6 +7,8 @@ Stuff to do!
   * use moderator example
 
 * pairing
+  * show existing pairings
+  * "unpair" button
   * provide data to a react app, allow filtering, etc.
 
 * hardening

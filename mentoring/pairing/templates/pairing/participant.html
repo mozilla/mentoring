@@ -1,0 +1,40 @@
+<dl>
+    {% if participant.org %}
+        <dt>Organization</dt>
+        <dd>
+            {{ participant.org }}
+            {% if participant.org_chart_distance %}
+            <br />Preference for pair in org chart: {{ participant.org_chart_distance }}
+            {% endif %}
+            {% if participant.track_change %}
+            <br />Changing Track: {{ participant.track_change }}
+            {% endif %}
+        </dd>
+    {% endif %}
+    {% if participant.org_level %}
+        <dt>Organization Level</dt>
+        <dd>
+            {{ participant.org_level }}
+            {% if participant.time_at_org_level %}
+            (at this level for {{ participant.time_at_org_level }})
+            {% endif %}
+        </dd>
+    {% endif %}
+    {% if participant.interests %}
+        <dt>Interests</dt>
+        {% for interest in participant.interests %}
+            <dd>{{ interest }}</dd>
+        {% endfor %}
+    {% endif %}
+    {% if comments %}
+        <dt>Comments</dt>
+        <dd>{{ participant.comments }}</dd>
+    {% endif %}
+    <dt>Time Availability</dt>
+    <dd>{{ participant.time_availability }}</dd>
+    <dt>Manager</dt>
+    <dd>
+        {{ participant.manager }}
+        {% if participant.approved %}(approved){% endif %}
+    </dd>
+</dl>
