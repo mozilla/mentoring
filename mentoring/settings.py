@@ -32,11 +32,15 @@ ALLOWED_HOSTS = []
 # days to retain user data
 DATA_RETENTION_DAYS = 180
 
+# secret key for hashing pair_ids (treat like SECRET_KEY)
+PAIR_ID_HASH_SECRET = 'chod6oojiephahqu6ohseiN7uuj2ma'
+
 # Application definition
 
 INSTALLED_APPS = [
     'mentoring.enrollment.apps.EnrollmentConfig',
     'mentoring.participants.apps.ParticipantsConfig',
+    'mentoring.pairing.apps.PairingConfig',
     'mentoring.home.apps.HomeConfig',
     'django.contrib.admin',
     'django.contrib.auth',
