@@ -35,8 +35,8 @@ DATA_RETENTION_DAYS = 180
 # Application definition
 
 INSTALLED_APPS = [
-    'enrollment.apps.EnrollmentConfig',
-    'participants.apps.ParticipantsConfig',
+    'mentoring.enrollment.apps.EnrollmentConfig',
+    'mentoring.participants.apps.ParticipantsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
