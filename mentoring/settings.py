@@ -37,6 +37,7 @@ DATA_RETENTION_DAYS = 180
 INSTALLED_APPS = [
     'mentoring.enrollment.apps.EnrollmentConfig',
     'mentoring.participants.apps.ParticipantsConfig',
+    'mentoring.home.apps.HomeConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -60,7 +61,7 @@ ROOT_URLCONF = 'mentoring.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['mentoring/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
