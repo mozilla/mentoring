@@ -1,6 +1,23 @@
 from django.db import models
 from textwrap import dedent
 
+from django.core.exceptions import ValidationError
+
+
+def validate_time_availability(time_availability):
+    if len(time_availability) != 24:
+        raise ValidationError('time_availability must be 24 characters')
+    if any(c not in 'YN' for c in time_availability):
+        raise ValidationError('time_availability must contain only Y and N characters')
+
+
+def validate_interests(interests):
+    if type(interests) != type(list):
+        raise ValidationError('interests must be a list')
+    if any(type(i) != type('') for i in interests):
+        raise ValidationError('interests must contain strings')
+
+
 class Participant(models.Model):
     """
     A Participant in the program.
@@ -39,17 +56,17 @@ class Participant(models.Model):
     manager_email = models.EmailField(null=False, help_text=dedent('''\
         The participant's manager's email address.  This is used to verify approval. '''))
 
-    approved = models.BooleanField(help_text=dedent('''\
+    approved = models.BooleanField(null=True, help_text=dedent('''\
         Whether this participant's participation has been approved by their manager.
         Null means "not yet"; we treat silence from managers as consent.'''))
 
     time_availability = models.CharField(
         max_length=24,
         null=False,
+        validators=[validate_time_availability],
         help_text=dedent('''\
             The participant's time availability, as a sequence of Y and N for each UTC hour,
             so `NNNYYYYYYYYYNNNNNNNNNNNN` indicates availability from 03:00-12:00 UTC.'''),
-        # TODO: add a validator
         )
 
     org = models.CharField(max_length=100, null=True, help_text=dedent('''\
@@ -64,7 +81,7 @@ class Participant(models.Model):
     interests = models.JSONField(null=True, blank=False, help_text=dedent('''\
         A learner's areas of interest, or a mentor's areas in which they can offer mentorship;
         format is an array of open-text strings.'''),
-        # TODO: add a validator
+        validators=[validate_interests],
         )
 
     track_change = models.CharField(null=True, max_length=64, help_text=dedent('''\
