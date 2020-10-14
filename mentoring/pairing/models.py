@@ -13,6 +13,9 @@ class Pair(models.Model):
     An active pairing in the program.
     """
 
+    def __str__(self):
+        return f'{self.mentor} / {self.learner}'
+
     learner = models.ForeignKey(
         Participant,
         related_name='learner_pairing',

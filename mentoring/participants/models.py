@@ -12,7 +12,7 @@ def validate_time_availability(time_availability):
 
 
 def validate_interests(interests):
-    if type(interests) != type(list):
+    if type(interests) != list:
         raise ValidationError('interests must be a list')
     if any(type(i) != type('') for i in interests):
         raise ValidationError('interests must contain strings')
