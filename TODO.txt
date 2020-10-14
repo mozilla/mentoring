@@ -7,10 +7,20 @@ Stuff to do!
   * SSO-linked?
   * Simplest possible!
   * critical for admin; just need an identity for enrollment
-  * maybe moderator provides an example?
+  * use moderator example
+
+* hardening
+  * use moderator as an example
+  * CSP
+  * django.middleware.security.SecurityMiddleware
+  * clickjacking
 
 * enrollment
   * replace Alchemer with.. a regular old form (or a react app)
 
 * pairing
   * provide data to a react app, allow filtering, etc.
+
+* deployment
+  * in heroku
+  * use moderator as an example
