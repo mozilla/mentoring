@@ -1,0 +1,16 @@
+Stuff to do!
+
+* figure out
+  * how flexible is admin/ -- can this all be done there?
+
+* user authentication
+  * SSO-linked?
+  * Simplest possible!
+  * critical for admin; just need an identity for enrollment
+  * maybe moderator provides an example?
+
+* enrollment
+  * replace Alchemer with.. a regular old form (or a react app)
+
+* pairing
+  * provide data to a react app, allow filtering, etc.
