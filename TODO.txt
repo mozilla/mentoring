@@ -1,13 +1,13 @@
 Stuff to do!
 
-* figure out
-  * how flexible is admin/ -- can this all be done there?
-
 * user authentication
   * SSO-linked?
   * Simplest possible!
   * critical for admin; just need an identity for enrollment
   * use moderator example
+
+* pairing
+  * provide data to a react app, allow filtering, etc.
 
 * hardening
   * use moderator as an example
@@ -18,8 +18,17 @@ Stuff to do!
 * enrollment
   * replace Alchemer with.. a regular old form (or a react app)
 
-* pairing
-  * provide data to a react app, allow filtering, etc.
+* notes
+  * provide a way to add notes to a participant (not via admin)
+
+* emails
+  * provide a way to create batches of emails and send them, and track what's
+    been sent
+
+* misc
+  * linting
+  * CI
+  * move repo to mozilla/
 
 * deployment
   * in heroku
