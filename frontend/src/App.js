@@ -1,5 +1,6 @@
 import React from "react";
+import Home from './views/Home';
 
 export default function App(props) {
-  return <h1>Hello World</h1>;
+  return <Home />;
 };

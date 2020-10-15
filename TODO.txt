@@ -6,6 +6,10 @@ Stuff to do!
   * critical for admin; just need an identity for enrollment
   * use moderator example
 
+* UI
+  * Helmet to set title
+  * Routing
+
 * pairing
   * show existing pairings
   * "unpair" button
