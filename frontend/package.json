@@ -1,0 +1,23 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development ./src/index.js --output-path ../static/frontend",
+    "build": "webpack --mode production ./src/index.js --output-path ../static/frontend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.12.0",
+    "@babel/preset-env": "^7.12.0",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "webpack": "^5.1.1",
+    "webpack-cli": "^4.0.0"
+  }
+}
