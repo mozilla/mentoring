@@ -9,6 +9,7 @@ Stuff to do!
 * pairing
   * show existing pairings
   * "unpair" button
+  * check in model that pair.mentor.role == MENTOR etc.
   * provide data to a react app, allow filtering, etc.
 
 * hardening
