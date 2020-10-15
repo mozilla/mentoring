@@ -14,6 +14,7 @@ class ParticipantSerializer(serializers.HyperlinkedModelSerializer):
             'approved',
             'time_availability',
             'org',
+            'org_chart_distance',
             'org_level',
             'time_at_org_level',
             'interests',

@@ -1,11 +1,11 @@
 import React, { Fragment } from "react";
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 // Show a spinner if any of the array of loads are still loading, or an error
 // if the load fails; otherwise show children.
 export default function Loading({ children, loads }) {
   if (!loads.every(({ loading }) => !loading)) {
-    // TODO: poor man's spinner
-    return <h2>Loading</h2>;
+    return <LinearProgress />
   }
 
   for (let {error} of loads) {

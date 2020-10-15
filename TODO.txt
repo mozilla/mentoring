@@ -6,17 +6,13 @@ Stuff to do!
   * critical for admin; just need an identity for enrollment
   * use moderator example
 
-* UI
-  * Helmet to set title
-  * Material Design
-
 * pairing
-  * show existing pairings
-  * "unpair" button
+  * option to show existing pairings with "unpair" button
+  * API method to create a pair
   * check in model that pair.mentor.role == MENTOR etc.
-  * provide data to a react app, allow filtering, etc.
 
 * hardening
+  * protect API with is_staff or something
   * use moderator as an example
   * CSP
   * django.middleware.security.SecurityMiddleware
