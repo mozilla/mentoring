@@ -8,7 +8,7 @@ Stuff to do!
 
 * UI
   * Helmet to set title
-  * Routing
+  * Material Design
 
 * pairing
   * show existing pairings

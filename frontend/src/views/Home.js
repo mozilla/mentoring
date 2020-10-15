@@ -1,13 +1,14 @@
-import React from "react";
-import { useParticipants } from '../data/participants';
-import Loading from '../components/Loading';
+import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 
 export default function Home(props) {
-  const [participants, refetch] = useParticipants();
-
   return (
-    <Loading loads={[participants]}>
-      <pre>{JSON.stringify(participants.data, null, 2)}</pre>
-    </Loading>
+    <Fragment>
+      <h1>Mozilla Mentorship Program</h1>
+      <ul>
+        <li><a href="/admin/">Administration</a></li>
+        <li><Link to="/pairing">Pairing</Link></li>
+      </ul>
+    </Fragment>
   );
 };
