@@ -25,7 +25,9 @@ SECRET_KEY = '54ld$bgd#&@os*u2^t)06b)8@-#m&2zhe_4k+*xs_k6f*n*o_a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'mentoring.ngrok.io',
+]
 
 # Project-specific confit
 
