@@ -41,13 +41,14 @@ INSTALLED_APPS = [
     'mentoring.enrollment.apps.EnrollmentConfig',
     'mentoring.participants.apps.ParticipantsConfig',
     'mentoring.pairing.apps.PairingConfig',
-    'mentoring.home.apps.HomeConfig',
+    'mentoring.frontend.apps.FrontendConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -142,3 +143,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
