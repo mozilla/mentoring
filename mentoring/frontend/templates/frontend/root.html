@@ -1,9 +1,14 @@
-{% extends "base.html" %}
-
-{% block content %}
-<h1>Mozilla Mentorship Program</h1>
-<ul>
-    <li><a href="/admin">Administration Panel</a></li>
-    <li><a href="/pairing">Make Pairings</a></li>
-</ul>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div id="app">
+    <!-- React will load here -->
+</div>
+</body>
+{% load static %}
+<script src="{% static "frontend/main.js" %}"></script>
+</html>

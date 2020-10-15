@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Fragment } from "react";
+import Helmet from 'react-helmet';
 import Home from './views/Home';
 import Pairing from './views/Pairing';
 import {
@@ -9,15 +10,20 @@ import {
 
 export default function App(props) {
   return (
-    <Router>
-      <Switch>
-        <Route path="/pairing">
-          <Pairing />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </Router>
+    <Fragment>
+      <Helmet>
+        <title>Mozilla Mentorship Program</title>
+      </Helmet>
+      <Router>
+        <Switch>
+          <Route path="/pairing">
+            <Pairing />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
+    </Fragment>
   );
 };

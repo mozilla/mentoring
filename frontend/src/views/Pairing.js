@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import Helmet from 'react-helmet';
 import Loading from '../components/Loading';
 import Participant from '../components/Participant';
 import { useParticipants } from '../data/participants';
@@ -21,6 +22,9 @@ export default function Home(props) {
 
   return (
     <Fragment>
+      <Helmet>
+        <title>Mozilla Mentorship Program - Pairing</title>
+      </Helmet>
       <h1>Mozilla Mentorship Program - Pairing</h1>
       {mentor && (<span>Selected mentor: {mentor.full_name}</span>)}
       {learner && (<span>Selected learner: {learner.full_name}</span>)}
