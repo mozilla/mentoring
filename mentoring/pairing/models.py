@@ -53,6 +53,9 @@ class HistoricalPair(models.Model):
     indefinitely.
     """
 
+    def __str__(self):
+        return self.pair_id
+
     @classmethod
     def record_pairing(cls, pair):
         """Record that a pairing has been made."""
