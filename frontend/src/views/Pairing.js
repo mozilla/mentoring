@@ -13,6 +13,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Drawer from '@material-ui/core/Drawer';
 import Radio from '@material-ui/core/Radio';
+import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from 'mdi-react/CloseIcon';
 import ChevronDownIcon from 'mdi-react/ChevronDownIcon';
@@ -96,11 +97,27 @@ function PairDrawer({ mentor, learner, open, pairing, onClose, onPair }) {
   );
 }
 
+function PairedSnackbar({ onClose, open, pair }) {
+  return (
+    <Snackbar
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+      }}
+      open={open}
+      autoHideDuration={10000}
+      onClose={onClose}
+      message={`Pair created: ${pair.mentor?.full_name} / ${pair.learner?.full_name}`} />
+  );
+}
+
 export default function Home(props) {
-  const [participants, refecthParticipants] = useParticipants();
+  const [participants, refetchParticipants] = useParticipants();
   const [mentor, setMentor] = useState(null);
   const [learner, setLearner] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarPair, setSnackbarPair] = useState({});
 
   const [pair, postPairing] = useAxios({
     url: '/api/pairs',
@@ -137,6 +154,10 @@ export default function Home(props) {
           }}
           selected={learner} />
         <div style={{ clear: 'all' }} />
+        <PairedSnackbar
+          pair={snackbarPair}
+          open={snackbarOpen}
+          onClose={() => setSnackbarOpen(false)} />
         <PairDrawer
           mentor={mentor}
           learner={learner}
@@ -152,7 +173,8 @@ export default function Home(props) {
               postPairing({
                 data: { mentor: mentor.id, learner: learner.id },
               }).then(() => {
-                // TODO: snackbar?
+                setSnackbarPair({mentor, learner});
+                setSnackbarOpen(true);
                 setDrawerOpen(false);
                 setMentor(null);
                 setLearner(null);
