@@ -49,6 +49,10 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'end',
   },
+  mentorship: {
+    maxHeight: 48,
+    paddingRight: theme.spacing(3),
+  }
 }));
 
 export default function App(props) {
@@ -63,11 +67,11 @@ export default function App(props) {
       <Router>
         <AppBar className={classes.appBar}>
           <Toolbar className={classes.toolbar}>
-            <Typography variant="h6">
+            <img src="/static/images/mentorship.png" alt="Program Logo" className={classes.mentorship} />
+            <Typography variant="h6" style={{ flexGrow: '1' }}>
               Mozilla Mentoring Program
             </Typography>
-            <a
-              href="/admin/">
+            <a href="/admin/">
               <Tooltip placement="bottom" title="Admin Panel">
                 <IconButton>
                   <CogOutlineIcon className={classes.appIcon} />
