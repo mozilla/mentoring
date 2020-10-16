@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import useAxios from 'axios-hooks'
 import Helmet from 'react-helmet';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -17,6 +18,7 @@ import CloseIcon from 'mdi-react/CloseIcon';
 import ChevronDownIcon from 'mdi-react/ChevronDownIcon';
 import Loading from '../components/Loading';
 import Participant from '../components/Participant';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { useParticipants } from '../data/participants';
 
 const useStyles = makeStyles(theme => ({
@@ -58,7 +60,7 @@ function ParticipantColumn({ participants, title, filter, onSelect, selected }) 
   );
 }
 
-function PairDrawer({ mentor, learner, open, onClose, onPair }) {
+function PairDrawer({ mentor, learner, open, pairing, onClose, onPair }) {
   const classes = useStyles();
 
   // TODO: show time compatibility, shared interests, etc.
@@ -73,6 +75,7 @@ function PairDrawer({ mentor, learner, open, onClose, onPair }) {
       PaperProps={{ elevation: 4 }}>
       {open && (
         <Fragment>
+          {pairing && <LinearProgress />}
           <DialogTitle>Proposed Pair: {mentor.full_name} / {learner.full_name}</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -94,24 +97,32 @@ function PairDrawer({ mentor, learner, open, onClose, onPair }) {
 }
 
 export default function Home(props) {
-  const [participants, refectParticipants] = useParticipants();
+  const [participants, refecthParticipants] = useParticipants();
   const [mentor, setMentor] = useState(null);
   const [learner, setLearner] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const [pair, postPairing] = useAxios({
+    url: '/api/pairs',
+    method: 'POST',
+    headers: { 'X-CSRFToken': csrftoken },
+  }, { manual: true });
 
   return (
     <Fragment>
       <Helmet>
         <title>Mozilla Mentorship Program - Pairing</title>
       </Helmet>
-      <Loading loads={ [ participants ] }>
+      <Loading loads={ [ participants ] } errorOnly={ [ pair ] }>
         <ParticipantColumn
           title="Mentors"
           participants={participants}
           filter={p => p.role == 'M'}
           onSelect={p => {
-            setMentor(p);
-            learner && setDrawerOpen(true);
+            if (!pair.loading) {
+              setMentor(p);
+              learner && setDrawerOpen(true);
+            }
           }}
           selected={mentor} />
         <ParticipantColumn
@@ -119,26 +130,35 @@ export default function Home(props) {
           participants={participants}
           filter={p => p.role == 'L'}
           onSelect={p => {
-            setLearner(p);
-            mentor && setDrawerOpen(true);
+            if (!pair.loading) {
+              setLearner(p);
+              mentor && setDrawerOpen(true);
+            }
           }}
           selected={learner} />
         <div style={{ clear: 'all' }} />
         <PairDrawer
           mentor={mentor}
           learner={learner}
-          open={drawerOpen}
+          open={mentor && learner && drawerOpen}
+          pairing={pair.loading}
           onClose={() => {
-            setMentor(null);
-            setLearner(null);
-            setDrawerOpen(false);
+            if (!pair.loading) {
+              setDrawerOpen(false);
+            }
           }}
           onPair={(mentor, learner) => {
-            console.log('pair', mentor.full_name, learner.full_name);
-            setMentor(null);
-            setLearner(null);
-            setDrawerOpen(false);
-            refetchParticipants();
+            if (!pair.loading) {
+              postPairing({
+                data: { mentor: mentor.id, learner: learner.id },
+              }).then(() => {
+                // TODO: snackbar?
+                setDrawerOpen(false);
+                setMentor(null);
+                setLearner(null);
+                refetchParticipants();
+              });
+            }
           }} />
       </Loading>
     </Fragment>

@@ -6,6 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import CogOutlineIcon from 'mdi-react/CogOutlineIcon';
+import CodeJsonIcon from 'mdi-react/CodeJsonIcon';
 import Home from './views/Home';
 import Pairing from './views/Pairing';
 import { ThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
@@ -75,6 +76,13 @@ export default function App(props) {
               <Tooltip placement="bottom" title="Admin Panel">
                 <IconButton>
                   <CogOutlineIcon className={classes.appIcon} />
+                </IconButton>
+              </Tooltip>
+            </a>
+            <a href="/api/">
+              <Tooltip placement="bottom" title="REST API">
+                <IconButton>
+                  <CodeJsonIcon className={classes.appIcon} />
                 </IconButton>
               </Tooltip>
             </a>

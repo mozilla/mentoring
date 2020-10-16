@@ -9,7 +9,7 @@ Stuff to do!
 * pairing
   * option to show existing pairings with "unpair" button
   * API method to create a pair
-  * check in model that pair.mentor.role == MENTOR etc.
+  * check in model that pair.mentor.role == MENTOR etc. and not already paired
 
 * hardening
   * protect API with is_staff or something

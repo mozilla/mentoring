@@ -10,6 +10,10 @@
     <!-- React will load here -->
 </div>
 </body>
+{% csrf_token %}
+<script>
+const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+</script>
 {% load static %}
 <script src="{% static "frontend/main.js" %}"></script>
 </html>
