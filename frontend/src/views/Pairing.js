@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from "react";
-import useAxios from 'axios-hooks'
 import Helmet from 'react-helmet';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -21,6 +20,7 @@ import Loading from '../components/Loading';
 import Participant from '../components/Participant';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { useParticipants } from '../data/participants';
+import { usePostPairing } from '../data/pairing';
 
 const useStyles = makeStyles(theme => ({
   // participant columns are floated to achieve similar heights
@@ -113,17 +113,12 @@ function PairedSnackbar({ onClose, open, pair }) {
 
 export default function Home(props) {
   const [participants, refetchParticipants] = useParticipants();
+  const [pair, postPairing] = usePostPairing();
   const [mentor, setMentor] = useState(null);
   const [learner, setLearner] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarPair, setSnackbarPair] = useState({});
-
-  const [pair, postPairing] = useAxios({
-    url: '/api/pairs',
-    method: 'POST',
-    headers: { 'X-CSRFToken': csrftoken },
-  }, { manual: true });
 
   return (
     <Fragment>
