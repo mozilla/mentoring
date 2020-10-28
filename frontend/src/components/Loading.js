@@ -5,11 +5,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 // if the load fails; otherwise show children.  errorOnly is similar, but ignoring
 // the loading state (for something that does not prevent rendering)
 export default function Loading({ children, loads, errorOnly }) {
-  if (!loads.every(({ loading }) => !loading)) {
-    return <LinearProgress />
-  }
-
-  for (let {error} of loads.concat(errorOnly)) {
+  for (let {error} of loads.concat(errorOnly || [])) {
     if (error) {
       return (
         <div>
@@ -18,6 +14,10 @@ export default function Loading({ children, loads, errorOnly }) {
         </div>
       );
     }
+  }
+
+  if (!loads.every(({ loading }) => !loading)) {
+    return <LinearProgress />
   }
 
   return <Fragment>{children}</Fragment>;

@@ -1,0 +1,4 @@
+{
+  "testRegex": ".*_test\\.js$",
+  "setupFilesAfterEnv": ["./test/setup"]
+}
