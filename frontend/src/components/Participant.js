@@ -13,14 +13,14 @@ export default function Participant({ participant, omitTitle }) {
     <TableContainer component={Paper}>
       <Table size="small" aria-label="participant information table">
         <TableBody>
-          {omitTitle || (
-            <TableRow>
+          {omitTitle ? undefined : (
+            <TableRow data-testid="name">
               <TableCell component="th">Name</TableCell>
               <TableCell>{participant.full_name}</TableCell>
             </TableRow>
           )}
           {participant.org && (
-            <TableRow>
+            <TableRow data-testid="organization">
               <TableCell component="th">Organization</TableCell>
               <TableCell>
                 {participant.org}
@@ -32,7 +32,7 @@ export default function Participant({ participant, omitTitle }) {
             </TableRow>
           )}
           {participant.org_level && (
-            <TableRow>
+            <TableRow data-testid="org-level">
               <TableCell component="th">Organization Level</TableCell>
               <TableCell>
                 {participant.org_level}
@@ -42,7 +42,7 @@ export default function Participant({ participant, omitTitle }) {
             </TableRow>
           )}
           {participant.interests.length > 0 && (
-            <TableRow>
+            <TableRow data-testid="interests">
               <TableCell component="th">Interests</TableCell>
               <TableCell>
                 {participant.interests.map(i => <div key={i}>{i}</div>)}
@@ -50,14 +50,14 @@ export default function Participant({ participant, omitTitle }) {
             </TableRow>
           )}
           {participant.comments.length > 0 && (
-            <TableRow>
+            <TableRow data-testid="comments">
               <TableCell component="th">Comments</TableCell>
               <TableCell>
                 {participant.comments}
               </TableCell>
             </TableRow>
           )}
-          <TableRow>
+          <TableRow data-testid="time-availability">
             <TableCell component="th">Time Availability</TableCell>
             <TableCell>
               {participant.time_availability}
