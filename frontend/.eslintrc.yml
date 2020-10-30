@@ -1,18 +1,20 @@
 env:
   browser: true
   es2021: true
+plugins:
+  - react
+  - jest
+  - react-hooks
 extends:
   - 'eslint:recommended'
   - 'plugin:react/recommended'
   - 'plugin:jest/recommended'
+  - 'plugin:react-hooks/recommended'
 parserOptions:
   ecmaFeatures:
     jsx: true
   ecmaVersion: 12
   sourceType: module
-plugins:
-  - react
-  - jest
 rules: {}
 globals:
   csrftoken: readonly # this global is set by Django in the wrapper HTML
