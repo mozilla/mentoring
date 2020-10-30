@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, within } from '@testing-library/react';
-import Participant from '../../src/components/Participant';
+import Participant from './Participant';
 
 describe('Participant', () => {
   const makeParticip = particip => ({
