@@ -1,17 +1,5 @@
 import React, { Fragment, useState } from "react";
 import Helmet from 'react-helmet';
-import { makeStyles } from '@material-ui/core/styles';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from 'mdi-react/CloseIcon';
-import ChevronDownIcon from 'mdi-react/ChevronDownIcon';
 import Loading from '../../components/Loading';
 import ParticipantColumn from './ParticipantColumn';
 import PairDrawer from './PairDrawer';
@@ -20,7 +8,7 @@ import { useParticipants } from '../../data/participants';
 import { usePostPairing } from '../../data/pairing';
 
 
-export default function Home(props) {
+export default function Home() {
   const [participants, refetchParticipants] = useParticipants();
   const [pair, postPairing] = usePostPairing();
   const [mentor, setMentor] = useState(null);
@@ -37,8 +25,7 @@ export default function Home(props) {
       <Loading loads={ [ participants ] } errorOnly={ [ pair ] }>
         <ParticipantColumn
           title="Mentors"
-          participants={participants}
-          filter={p => p.role == 'M'}
+          participants={participants.data?.filter(p => p.role == 'M')}
           onSelect={p => {
             if (!pair.loading) {
               setMentor(p);
@@ -48,8 +35,7 @@ export default function Home(props) {
           selected={mentor} />
         <ParticipantColumn
           title="Learners"
-          participants={participants}
-          filter={p => p.role == 'L'}
+          participants={participants.data?.filter(p => p.role == 'L')}
           onSelect={p => {
             if (!pair.loading) {
               setLearner(p);
@@ -89,4 +75,4 @@ export default function Home(props) {
       </Loading>
     </Fragment>
   );
-};
+}

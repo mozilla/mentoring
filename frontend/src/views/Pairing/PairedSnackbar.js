@@ -1,5 +1,7 @@
-import React, { Fragment } from "react";
+import React from "react";
+import PropTypes from 'prop-types';
 import Snackbar from '@material-ui/core/Snackbar';
+import { participantType } from '../../data/participants';
 
 export default function PairedSnackbar({ onClose, open, pair }) {
   return (
@@ -14,3 +16,17 @@ export default function PairedSnackbar({ onClose, open, pair }) {
       message={`Pair created: ${pair.mentor?.full_name} / ${pair.learner?.full_name}`} />
   );
 }
+
+PairedSnackbar.propTypes = {
+  // callback when the snackbar closes
+  onClose: PropTypes.func.isRequired,
+
+  // if the snackbar is open
+  open: PropTypes.bool.isRequired,
+
+  // pair to display
+  pair: PropTypes.shape({
+    mentor: participantType,
+    learner: participantType,
+  }).isRequired,
+};

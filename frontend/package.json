@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "webpack --mode development ./src/index.js --output-path ../static/frontend",
     "build": "webpack --mode production ./src/index.js --output-path ../static/frontend",
+    "lint": "eslint --cache --ext js,jsx src test",
     "test": "jest --config ./jest.config.json"
   },
   "keywords": [],
@@ -23,6 +24,9 @@
     "axios-hooks": "^2.1.0",
     "axios-hooks-mock": "^1.1.0",
     "babel-loader": "^8.1.0",
+    "eslint": "^7.12.1",
+    "eslint-plugin-jest": "^24.1.0",
+    "eslint-plugin-react": "^7.21.5",
     "jest": "^26.6.1",
     "mdi-react": "^7.3.0",
     "react": "^16.14.0",
@@ -32,6 +36,7 @@
     "webpack-cli": "^4.0.0"
   },
   "dependencies": {
+    "prop-types": "^15.7.2",
     "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0"
   }

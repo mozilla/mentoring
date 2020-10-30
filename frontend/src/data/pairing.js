@@ -13,6 +13,7 @@ export function usePostPairing() {
   return useAxios({
     url: '/api/pairs',
     method: 'POST',
+    // this global is set by Django in the wrapper HTML
     headers: { 'X-CSRFToken': csrftoken },
   }, { manual: true });
 }

@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import PropTypes from 'prop-types';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 // Show a spinner if any of the array of loads are still loading, or an error
@@ -22,3 +23,9 @@ export default function Loading({ children, loads, errorOnly }) {
 
   return <Fragment>{children}</Fragment>;
 }
+
+Loading.propTypes = {
+  children: PropTypes.node.isRequired,
+  loads: PropTypes.arrayOf(PropTypes.shape({ loading: PropTypes.bool, error: PropTypes.object })).isRequired,
+  errorOnly: PropTypes.arrayOf(PropTypes.shape({ error: PropTypes.object })),
+};
