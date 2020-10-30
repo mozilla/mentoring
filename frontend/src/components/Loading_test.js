@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Loading from '../../src/components/Loading';
+import Loading from './Loading';
 
 describe('Loading', () => {
   test('renders children with no loading, no failures', () => {
