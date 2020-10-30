@@ -12,49 +12,37 @@ tasks:
       then: ${event.pull_request.head.repo.html_url}
       else: ${event.repository.html_url}
   in:
-  - provisionerId: 'proj-taskcluster'
-    workerType: 'ci'
-    created: {$fromNow: ''}
-    deadline: {$fromNow: '1 hour'}
-    payload:
-      maxRunTime: 3600
-      image: node:10
-      command:
-        - /bin/bash
-        - '--login'
-        - '-c'
-        - >-
-          git clone ${repository} repo &&
-          cd repo/frontend &&
-          git config advice.detachedHead false &&
-          git checkout ${head_rev} &&
-          yarn --frozen-lockfile &&
-          yarn test
-    metadata:
-      name: frontend test
-      description: Tests for mentoring app
-      owner: nobody@mozilla.com
-      source: https://github.com/mozilla/mentoring
-  - provisionerId: 'proj-taskcluster'
-    workerType: 'ci'
-    created: {$fromNow: ''}
-    deadline: {$fromNow: '1 hour'}
-    payload:
-      maxRunTime: 3600
-      image: node:10
-      command:
-        - /bin/bash
-        - '--login'
-        - '-c'
-        - >-
-          git clone ${repository} repo &&
-          cd repo/frontend &&
-          git config advice.detachedHead false &&
-          git checkout ${head_rev} &&
-          yarn --frozen-lockfile &&
-          yarn lint
-    metadata:
-      name: frontend lint
-      description: Tests for mentoring app
-      owner: nobody@mozilla.com
-      source: https://github.com/mozilla/mentoring
+    $map:
+      - name: yarn test
+        command: >-
+        cd frontend &&
+        yarn --frozen-lockfile &&
+        yarn test
+      - name: yarn lint
+        command: >-
+        cd frontend &&
+        yarn --frozen-lockfile &&
+        yarn lint
+    each(opts):
+      provisionerId: 'proj-misc'
+      workerType: 'ci'
+      created: {$fromNow: ''}
+      deadline: {$fromNow: '1 hour'}
+      payload:
+        maxRunTime: 3600
+        image: node:10
+        command:
+          - /bin/bash
+          - '--login'
+          - '-c'
+          - >-
+            git clone ${repository} repo &&
+            cd repo &&
+            git config advice.detachedHead false &&
+            git checkout ${head_rev} &&
+            ${opts.command}
+      metadata:
+        name: "${opts.name}"
+        description: Mentoring app CI
+        owner: nobody@mozilla.com
+        source: https://github.com/mozilla/mentoring
