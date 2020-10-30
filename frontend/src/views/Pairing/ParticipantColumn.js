@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+import React from "react";
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -7,6 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ChevronDownIcon from 'mdi-react/ChevronDownIcon';
 import Radio from '@material-ui/core/Radio';
 import Participant from '../../components/Participant';
+import { participantType } from '../../data/participants';
 
 const useStyles = makeStyles(theme => ({
   // participant columns are floated to achieve similar heights
@@ -17,14 +19,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ParticipantColumn({ participants, title, filter, onSelect, selected }) {
+export default function ParticipantColumn({ participants, title, onSelect, selected }) {
   const classes = useStyles();
 
   return (
     <div className={classes.participantColumn}>
       <h2>{title}</h2>
-      {participants.data
-        .filter(filter)
+      {(participants || [])
         .map(p => (
           <Accordion defaultExpanded key={p.id}>
             <AccordionSummary expandIcon={<ChevronDownIcon />} aria-label="Expand">
@@ -44,3 +45,16 @@ export default function ParticipantColumn({ participants, title, filter, onSelec
   );
 }
 
+ParticipantColumn.propTypes = {
+  // title for the column
+  title: PropTypes.string,
+
+  // the response from useParticipants
+  participants: PropTypes.arrayOf(participantType),
+
+  // callback when a participant is selected
+  onSelect: PropTypes.func.isRequired,
+
+  // currently selected participant, if any
+  selected: PropTypes.object,
+};

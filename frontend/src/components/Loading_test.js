@@ -9,7 +9,7 @@ describe('Loading', () => {
     expect(looksOk).toBeInTheDocument();
   });
 
-  test('renders children without errorOnly ', () => {
+  test('renders children without errorOnly', () => {
     render(<Loading loads={[]}>looks ok</Loading>);
     const looksOk = screen.getByText(/looks ok/);
     expect(looksOk).toBeInTheDocument();

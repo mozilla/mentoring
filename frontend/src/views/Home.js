@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 
-export default function Home(props) {
+export default function Home() {
   return (
     <Fragment>
       <h1>Mozilla Mentorship Program</h1>
@@ -11,4 +11,4 @@ export default function Home(props) {
       </ul>
     </Fragment>
   );
-};
+}

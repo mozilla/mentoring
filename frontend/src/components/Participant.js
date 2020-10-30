@@ -1,11 +1,12 @@
-import React, { Fragment } from "react";
+import React from "react";
+import PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { participantType } from '../data/participants';
 
 export default function Participant({ participant, omitTitle }) {
   // TODO: use a time-availability component to better display this
@@ -68,3 +69,11 @@ export default function Participant({ participant, omitTitle }) {
     </TableContainer>
   );
 }
+
+Participant.propTypes = {
+  // the participant to display
+  participant: participantType.isRequired,
+
+  // if true, omit the title row (used when the name is already present elsewhere)
+  omitTitle: PropTypes.bool,
+};

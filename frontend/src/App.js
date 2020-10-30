@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Helmet from 'react-helmet';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function App(props) {
+export default function App() {
   const classes = useStyles();
 
   return (
@@ -99,4 +99,4 @@ export default function App(props) {
       </Router>
     </ThemeProvider>
   );
-};
+}

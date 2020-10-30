@@ -4,6 +4,9 @@ import Participant from './Participant';
 
 describe('Participant', () => {
   const makeParticip = particip => ({
+    id: 123,
+    email: 'abcd@efg.com',
+    manager: 'Big Boss',
     full_name: 'Ab Cd',
     interests: [],
     comments: '',

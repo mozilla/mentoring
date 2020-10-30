@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -7,6 +8,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
+import { participantType } from '../../data/participants';
 
 const useStyles = makeStyles(theme => ({
   drawer: {
@@ -50,3 +52,20 @@ export default function PairDrawer({ mentor, learner, open, pairing, onClose, on
   );
 }
 
+PairDrawer.propTypes = {
+  // mentor and learner being paired
+  mentor: participantType,
+  learner: participantType,
+
+  // if the drawer is open
+  open: PropTypes.bool,
+
+  // if the paring call is in progress
+  pairing: PropTypes.bool,
+
+  // callback for closing the drawer
+  onClose: PropTypes.func,
+
+  // callback for pairing
+  onPair: PropTypes.func,
+};
