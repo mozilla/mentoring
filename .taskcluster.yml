@@ -15,11 +15,13 @@ tasks:
   in:
     $map:
       - name: yarn test
+        image: node:12
         command: >-
           cd frontend &&
           yarn --frozen-lockfile &&
           yarn test
       - name: yarn lint
+        image: node:12
         command: >-
           cd frontend &&
           yarn --frozen-lockfile &&
@@ -31,7 +33,7 @@ tasks:
       deadline: {$fromNow: '1 hour'}
       payload:
         maxRunTime: 3600
-        image: node:10
+        image: "${opts.image}"
         command:
           - /bin/bash
           - '--login'
