@@ -15,14 +15,14 @@ tasks:
     $map:
       - name: yarn test
         command: >-
-        cd frontend &&
-        yarn --frozen-lockfile &&
-        yarn test
+          cd frontend &&
+          yarn --frozen-lockfile &&
+          yarn test
       - name: yarn lint
         command: >-
-        cd frontend &&
-        yarn --frozen-lockfile &&
-        yarn lint
+          cd frontend &&
+          yarn --frozen-lockfile &&
+          yarn lint
     each(opts):
       provisionerId: 'proj-misc'
       workerType: 'ci'
