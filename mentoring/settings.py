@@ -118,7 +118,7 @@ DATABASES = {
 # https://mozilla-django-oidc.readthedocs.io/en/stable/installation.html
 
 AUTHENTICATION_BACKENDS = [
-    'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
+    'mentoring.auth.MentoringAuthBackend',
 ]
 
 OIDC_RP_SIGN_ALGO = "RS256"
@@ -129,9 +129,16 @@ OIDC_OP_JWKS_ENDPOINT = "https://auth.mozilla.auth0.com/.well-known/jwks.json"
 OIDC_OP_TOKEN_ENDPOINT = "https://auth.mozilla.auth0.com/oauth/token"
 OIDC_OP_USER_ENDPOINT = "https://auth.mozilla.auth0.com/userinfo"
 OIDC_OP_AUTHORIZATION_ENDPOINT = "https://auth.mozilla.auth0.com/authorize"
+OIDC_RP_SCOPES = "openid email profile"
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
+
+# Members of these Mozilla SSO groups will be Django admins, able to do everything;
+# this capability is given to committee members.
+ALLOWED_ADMIN_GROUPS = [
+    'team_taskcluster',
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

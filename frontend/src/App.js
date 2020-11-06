@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Helmet from 'react-helmet';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
@@ -72,27 +72,32 @@ export default function App() {
             <Typography variant="h6" style={{ flexGrow: '1' }}>
               Mozilla Mentoring Program
             </Typography>
+            {MENTORING_SETTINGS.user.username && (
+              <Typography>
+                {MENTORING_SETTINGS.user.first_name} {MENTORING_SETTINGS.user.last_name}
+              </Typography>
+            )}
             <a href={MENTORING_SETTINGS.loginUrl}>
-              <Tooltip placement="bottom" title="Login (temporary)">
-                <IconButton>
-                  <CogOutlineIcon className={classes.appIcon} />
-                </IconButton>
-              </Tooltip>
+              Login
             </a>
-            <a href="/admin/">
-              <Tooltip placement="bottom" title="Admin Panel">
-                <IconButton>
-                  <CogOutlineIcon className={classes.appIcon} />
-                </IconButton>
-              </Tooltip>
-            </a>
-            <a href="/api/">
-              <Tooltip placement="bottom" title="REST API">
-                <IconButton>
-                  <CodeJsonIcon className={classes.appIcon} />
-                </IconButton>
-              </Tooltip>
-            </a>
+            {MENTORING_SETTINGS.user.is_staff && (
+              <Fragment>
+                <a href="/admin/">
+                  <Tooltip placement="bottom" title="Admin Panel">
+                    <IconButton>
+                      <CogOutlineIcon className={classes.appIcon} />
+                    </IconButton>
+                  </Tooltip>
+                </a>
+                <a href="/api/">
+                  <Tooltip placement="bottom" title="REST API">
+                    <IconButton>
+                      <CodeJsonIcon className={classes.appIcon} />
+                    </IconButton>
+                  </Tooltip>
+                </a>
+              </Fragment>
+            )}
           </Toolbar>
         </AppBar>
         <Switch>
