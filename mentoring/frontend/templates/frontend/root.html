@@ -12,7 +12,11 @@
 </body>
 {% csrf_token %}
 <script>
-const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+const MENTORING_SETTINGS = {
+  csrftoken: document.querySelector('[name=csrfmiddlewaretoken]').value,
+  loginUrl: "{% url 'oidc_authentication_init' %}",
+  logoutUrl: "{% url 'oidc_logout' %}",
+};
 </script>
 {% load static %}
 <script src="{% static "frontend/main.js" %}"></script>

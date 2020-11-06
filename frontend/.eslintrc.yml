@@ -20,4 +20,4 @@ settings:
   react:
     version: detect
 globals:
-  csrftoken: readonly # this global is set by Django in the wrapper HTML
+  MENTORING_SETTINGS: readonly # this global is set by Django in the wrapper HTML

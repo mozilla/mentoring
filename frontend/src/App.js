@@ -72,6 +72,13 @@ export default function App() {
             <Typography variant="h6" style={{ flexGrow: '1' }}>
               Mozilla Mentoring Program
             </Typography>
+            <a href={MENTORING_SETTINGS.loginUrl}>
+              <Tooltip placement="bottom" title="Login (temporary)">
+                <IconButton>
+                  <CogOutlineIcon className={classes.appIcon} />
+                </IconButton>
+              </Tooltip>
+            </a>
             <a href="/admin/">
               <Tooltip placement="bottom" title="Admin Panel">
                 <IconButton>
