@@ -10,6 +10,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # the API
     path('api/', include(rest.router.urls)),
+    # oidc authentication
+    path('oidc/', include('mozilla_django_oidc.urls')),
     # ..and anything else renders the frontend
     path('', include('mentoring.frontend.urls')),
 ]

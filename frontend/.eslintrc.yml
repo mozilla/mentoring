@@ -17,4 +17,4 @@ parserOptions:
   sourceType: module
 rules: {}
 globals:
-  csrftoken: readonly # this global is set by Django in the wrapper HTML
+  MENTORING_SETTINGS: readonly # this global is set by Django in the wrapper HTML

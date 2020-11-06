@@ -8,7 +8,9 @@ export const api = {
    */
   mock() {
     // this global is ordinarily set by Django in the wrapper HTML
-    global.csrftoken = 'abc'; // eslint-disable-line no-undef
+    global.MENTORING_SETTINGS = { // eslint-disable-line no-undef
+      csrftoken: 'abc',
+    };
     useAxios.mockImplementation(
       new AxiosHooksMock(
         [...arguments],
