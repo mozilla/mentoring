@@ -16,5 +16,8 @@ parserOptions:
   ecmaVersion: 12
   sourceType: module
 rules: {}
+settings:
+  react:
+    version: detect
 globals:
   csrftoken: readonly # this global is set by Django in the wrapper HTML
