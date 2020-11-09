@@ -19,6 +19,5 @@ class PairSerializer(serializers.HyperlinkedModelSerializer):
 
 # ViewSets define the view behavior.
 class PairViewSet(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
-    permission_classes = [permissions.IsAuthenticated]
     queryset = Pair.objects.all()
     serializer_class = PairSerializer
