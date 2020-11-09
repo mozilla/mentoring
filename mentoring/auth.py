@@ -1,5 +1,6 @@
 from django.conf import settings
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
+import urllib.parse
 
 
 class MentoringAuthBackend(OIDCAuthenticationBackend):
@@ -11,9 +12,12 @@ class MentoringAuthBackend(OIDCAuthenticationBackend):
 
     def get_username(self, claims):
         """
-        Use the OIDC `sub` claim as the username, as it is guaranteed to be unique and not change
+        Use the OIDC `sub` claim as the username, as it is guaranteed to be
+        unique and not change.  It is escaped using a format similar to
+        urlencoding, to the Django requirement "alphanumeric, _, @, +, . and -
+        characters".
         """
-        return claims['sub']
+        return urllib.parse.quote(claims['sub'], safe='').replace('%', '@')
 
     def create_user(self, claims):
         """
