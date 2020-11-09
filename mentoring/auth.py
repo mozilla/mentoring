@@ -32,7 +32,7 @@ class MentoringAuthBackend(OIDCAuthenticationBackend):
         user.last_name = claims.get('family_name', '')
 
         groups = claims.get("https://sso.mozilla.com/claim/groups", [])
-        user.is_staff = any(x in groups for x in settings.ALLOWED_ADMIN_GROUPS)
+        user.is_staff = any(x in groups for x in settings.STAFF_GROUPS)
 
         user.save()
 
