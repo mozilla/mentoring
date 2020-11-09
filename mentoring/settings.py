@@ -138,9 +138,9 @@ LOGOUT_REDIRECT_URL = "/"
 # URL to which the user should be redirected in order to login
 LOGIN_URL = '/oidc/authenticate/'
 
-# Members of these Mozilla SSO groups will be Django admins, able to do everything;
+# Members of these Mozilla SSO groups will be Django staff, able to do everything;
 # this capability is given to committee members.
-ALLOWED_ADMIN_GROUPS = [
+STAFF_GROUPS = [
     'team_taskcluster',
 ]
 
