@@ -144,6 +144,13 @@ STAFF_GROUPS = [
     'team_taskcluster',
 ]
 
+# Default permission for all API methods is to require user.is_staff
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser',
+    ]
+}
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 

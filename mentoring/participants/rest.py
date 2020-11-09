@@ -25,6 +25,5 @@ class ParticipantSerializer(serializers.HyperlinkedModelSerializer):
 
 # ViewSets define the view behavior.
 class ParticipantViewSet(viewsets.ReadOnlyModelViewSet):
-    permission_classes = [permissions.IsAuthenticated]
     queryset = Participant.objects.all()
     serializer_class = ParticipantSerializer
