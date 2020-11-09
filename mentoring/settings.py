@@ -131,8 +131,12 @@ OIDC_OP_USER_ENDPOINT = "https://auth.mozilla.auth0.com/userinfo"
 OIDC_OP_AUTHORIZATION_ENDPOINT = "https://auth.mozilla.auth0.com/authorize"
 OIDC_RP_SCOPES = "openid email profile"
 
+# URLs to which the user will be redirected when login/logout are complete
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
+
+# URL to which the user should be redirected in order to login
+LOGIN_URL = '/oidc/authenticate/'
 
 # Members of these Mozilla SSO groups will be Django admins, able to do everything;
 # this capability is given to committee members.

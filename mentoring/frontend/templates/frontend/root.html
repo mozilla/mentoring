@@ -21,8 +21,6 @@ const MENTORING_SETTINGS = {
     last_name: "{{ user.last_name }}",
     is_staff: "{{ user.is_staff }}" === "True",
   },
-  loginUrl: "{% url 'oidc_authentication_init' %}",
-  logoutUrl: "{% url 'oidc_logout' %}",
 };
 </script>
 {% load static %}

@@ -77,9 +77,6 @@ export default function App() {
                 {MENTORING_SETTINGS.user.first_name} {MENTORING_SETTINGS.user.last_name}
               </Typography>
             )}
-            <a href={MENTORING_SETTINGS.loginUrl}>
-              Login
-            </a>
             {MENTORING_SETTINGS.user.is_staff && (
               <Fragment>
                 <a href="/admin/">
