@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'mozilla_django_oidc',
     'django.contrib.contenttypes',
-    # TODO: disable with oidc?
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -61,7 +60,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # TODO: disable with oidc?
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
