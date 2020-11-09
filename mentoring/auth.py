@@ -35,8 +35,11 @@ class MentoringAuthBackend(OIDCAuthenticationBackend):
         user.email = claims.get('email', '')
         user.last_name = claims.get('family_name', '')
 
+        # assign is_staff and is_superuser to all STAFF_GROUPS; this gives
+        # access to all the things, including the admin console.
         groups = claims.get("https://sso.mozilla.com/claim/groups", [])
         user.is_staff = any(x in groups for x in settings.STAFF_GROUPS)
+        user.is_superuser = user.is_staff
 
         user.save()
 
