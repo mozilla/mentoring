@@ -1,12 +1,8 @@
 import React, { Fragment } from "react";
 import Helmet from 'react-helmet';
 import AppBar from '@material-ui/core/AppBar';
-import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
-import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
-import CogOutlineIcon from 'mdi-react/CogOutlineIcon';
-import CodeJsonIcon from 'mdi-react/CodeJsonIcon';
 import Home from './views/Home';
 import Pairing from './views/Pairing';
 import { ThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
@@ -72,29 +68,15 @@ export default function App() {
             <Typography variant="h6" style={{ flexGrow: '1' }}>
               Mozilla Mentoring Program
             </Typography>
-            {MENTORING_SETTINGS.user.username && (
-              <Typography>
-                {MENTORING_SETTINGS.user.first_name} {MENTORING_SETTINGS.user.last_name}
-              </Typography>
-            )}
-            {MENTORING_SETTINGS.user.is_staff && (
-              <Fragment>
-                <a href="/admin/">
-                  <Tooltip placement="bottom" title="Admin Panel">
-                    <IconButton>
-                      <CogOutlineIcon className={classes.appIcon} />
-                    </IconButton>
-                  </Tooltip>
-                </a>
-                <a href="/api/">
-                  <Tooltip placement="bottom" title="REST API">
-                    <IconButton>
-                      <CodeJsonIcon className={classes.appIcon} />
-                    </IconButton>
-                  </Tooltip>
-                </a>
-              </Fragment>
-            )}
+            <Typography>
+              {MENTORING_SETTINGS.user.username ? (
+                <Fragment>
+                  {MENTORING_SETTINGS.user.first_name} {MENTORING_SETTINGS.user.last_name}
+                </Fragment>
+              ) : (
+                "(not signed in)"
+              )}
+            </Typography>
           </Toolbar>
         </AppBar>
         <Switch>
