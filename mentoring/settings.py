@@ -139,7 +139,7 @@ LOGIN_URL = '/oidc/authenticate/'
 # Members of these Mozilla SSO groups will be Django staff, able to do everything;
 # this capability is given to committee members.
 STAFF_GROUPS = [
-    'team_taskcluster',
+    'mozilliansorg_mentoring-committee',
 ]
 
 # Default permission for all API methods is to require user.is_staff
