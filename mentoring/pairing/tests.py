@@ -2,6 +2,8 @@ import pytz
 import datetime
 
 from django.test import TestCase
+from django.contrib.auth.models import User
+from rest_framework.test import APIClient
 
 from .models import Pair, HistoricalPair
 from ..participants.models import Participant
@@ -33,7 +35,7 @@ class PairTest(TestCase):
 
         return l, m
 
-    def test_make_pair(self):
+    def test_model_make_pair(self):
         l, m = self.make_particips()
         p = Pair(learner=l, mentor=m)
         p.save()
@@ -49,3 +51,17 @@ class PairTest(TestCase):
         HistoricalPair.record_pairing(p)
 
         self.assertTrue(HistoricalPair.already_paired(p))
+
+    def test_make_pair_rest_mentor_as_learner(self):
+        l, m = self.make_particips()
+
+        client = APIClient()
+        user = User.objects.create_superuser('test')
+        user.save()
+        client.force_authenticate(user=user)
+        res = client.post(
+            '/api/pairs',
+            # note that these are reversed
+            {'mentor': l.id, 'learner': m.id},
+            format='json')
+        self.assertEqual(res.status_code, 400)
