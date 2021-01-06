@@ -5,6 +5,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Home from './views/Home';
 import Pairing from './views/Pairing';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from './components/ErrorFallback';
 import { ThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {
@@ -55,39 +57,46 @@ const useStyles = makeStyles(theme => ({
 export default function App() {
   const classes = useStyles();
 
+  // this component has two ErroBoundary instances, in hopes of catching errors
+  // with as much context as possible.
+
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Helmet>
-        <title>Mozilla Mentorship Program</title>
-      </Helmet>
-      <Router>
-        <AppBar className={classes.appBar}>
-          <Toolbar className={classes.toolbar}>
-            <img src="/static/images/mentorship.png" alt="Program Logo" className={classes.mentorship} />
-            <Typography variant="h6" style={{ flexGrow: '1' }}>
-              Mozilla Mentoring Program
-            </Typography>
-            <Typography>
-              {MENTORING_SETTINGS.user.username ? (
-                <Fragment>
-                  {MENTORING_SETTINGS.user.first_name} {MENTORING_SETTINGS.user.last_name}
-                </Fragment>
-              ) : (
-                "(not signed in)"
-              )}
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Switch>
-          <Route path="/pairing">
-            <Pairing />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
-    </ThemeProvider>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Helmet>
+          <title>Mozilla Mentorship Program</title>
+        </Helmet>
+        <Router>
+          <AppBar className={classes.appBar}>
+            <Toolbar className={classes.toolbar}>
+              <img src="/static/images/mentorship.png" alt="Program Logo" className={classes.mentorship} />
+              <Typography variant="h6" style={{ flexGrow: '1' }}>
+                Mozilla Mentoring Program
+              </Typography>
+              <Typography>
+                {MENTORING_SETTINGS.user.username ? (
+                  <Fragment>
+                    {MENTORING_SETTINGS.user.first_name} {MENTORING_SETTINGS.user.last_name}
+                  </Fragment>
+                ) : (
+                  "(not signed in)"
+                )}
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <Switch>
+              <Route path="/pairing">
+                <Pairing />
+              </Route>
+              <Route exact path="/">
+                <Home />
+              </Route>
+            </Switch>
+          </ErrorBoundary>
+        </Router>
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 }
