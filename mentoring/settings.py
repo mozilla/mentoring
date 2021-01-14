@@ -66,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'mentoring.urls'
@@ -181,6 +182,11 @@ USE_L10N = True
 
 USE_TZ = True
 
+# content security policy
+# NOTE: unsafe-eval is only required for development builds of the react app (`yarn dev`, not `yarn build`)
+CSP_DEFAULT_SRC = ["'self'", "'unsafe-inline'", "'unsafe-eval'"]
+CSP_FONT_SRC = ["https://fonts.gstatic.com"]
+CSP_STYLE_SRC = ["'unsafe-inline'", "https://fonts.googleapis.com"]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
