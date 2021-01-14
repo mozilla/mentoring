@@ -41,6 +41,12 @@ PAIR_ID_HASH_SECRET = 'chod6oojiephahqu6ohseiN7uuj2ma'
 # Trust X-Forwarded-Proto to signify a secure connection
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
+# security settings
+SECURE_HSTS_SECONDS = 3600
+SECURE_SSL_REDIRECT = True
+SECURE_REFERRER_POLICY = 'same-origin'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
 # Application definition
 
 INSTALLED_APPS = [
