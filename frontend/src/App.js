@@ -91,14 +91,16 @@ export default function App() {
           </AppBar>
           <div className={classes.offset} />
           <ErrorBoundary FallbackComponent={ErrorFallback}>
-            <Switch>
-              <Route path="/pairing">
-                <Pairing />
-              </Route>
-              <Route exact path="/">
-                <Home />
-              </Route>
-            </Switch>
+            <main>
+              <Switch>
+                <Route path="/pairing">
+                  <Pairing />
+                </Route>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+              </Switch>
+            </main>
           </ErrorBoundary>
         </Router>
       </ThemeProvider>
