@@ -183,8 +183,10 @@ USE_L10N = True
 USE_TZ = True
 
 # content security policy
-# NOTE: unsafe-eval is only required for development builds of the react app (`yarn dev`, not `yarn build`)
-CSP_DEFAULT_SRC = ["'self'", "'unsafe-inline'", "'unsafe-eval'"]
+CSP_DEFAULT_SRC = ["'self'", "'unsafe-inline'"]
+# For development builds of the react app (`yarn dev`, not `yarn build`), eval is needed
+if DEBUG:
+    CSP_DEFAULT_SRC.append("'unsafe-eval'")
 CSP_FONT_SRC = ["https://fonts.gstatic.com"]
 CSP_STYLE_SRC = ["'unsafe-inline'", "https://fonts.googleapis.com"]
 
