@@ -37,6 +37,10 @@ const useStyles = makeStyles(theme => ({
       borderBottom: 0,
     },
   },
+
+  // offset the main content beyond the appbar
+  offset: theme.mixins.toolbar,
+
   content: {
     backgroundColor: theme.palette.background,
     marginTop: 56,
@@ -85,6 +89,7 @@ export default function App() {
               </Typography>
             </Toolbar>
           </AppBar>
+          <div className={classes.offset} />
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             <Switch>
               <Route path="/pairing">
