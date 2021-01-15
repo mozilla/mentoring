@@ -28,3 +28,16 @@ Signing in creates a Django user and remaining authentication is performed using
 Members of groups listed in `STAFF_GROUPS` have "staff" access to the app.
 This includes access to the REST API (`/api`) and the Django administration panel (`/admin/`).
 Those who are not staff have access only to the enrollment form.
+
+## Development
+
+(incomplete)
+
+### Full Server
+
+This is a normal Django app.  To run the server, use `python manage.py runserver`.
+You will need to set the following environment variables first:
+ * `OIDC_RP_CLIENT_ID`
+ * `OIDC_RP_CLIENT_SECRET`
+ * `SECRET_KEY` (a long random value used for session hashing)
+ * `PAIR_ID_HASH_SECRET` (a long random value used for hashing historical pairs)

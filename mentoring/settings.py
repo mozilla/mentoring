@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '54ld$bgd#&@os*u2^t)06b)8@-#m&2zhe_4k+*xs_k6f*n*o_a'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -36,7 +36,7 @@ ALLOWED_HOSTS = [
 DATA_RETENTION_DAYS = 180
 
 # secret key for hashing pair_ids (treat like SECRET_KEY)
-PAIR_ID_HASH_SECRET = 'chod6oojiephahqu6ohseiN7uuj2ma'
+PAIR_ID_HASH_SECRET = os.environ['PAIR_ID_HASH_SECRET']
 
 # Trust X-Forwarded-Proto to signify a secure connection
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
@@ -46,6 +46,8 @@ SECURE_HSTS_SECONDS = 3600
 SECURE_SSL_REDIRECT = True
 SECURE_REFERRER_POLICY = 'same-origin'
 SECURE_CONTENT_TYPE_NOSNIFF = True
+SESSION_COOKIE_SECURE = 1  # Set that the cookie should only be sent on https
+CSRF_COOKIE_SECURE = 1  # Same for CSRF cookies
 
 # Application definition
 
