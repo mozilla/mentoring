@@ -4,8 +4,6 @@ We welcome pull requests from everyone. We do expect everyone to adhere to the [
 
 ## Setup
 
-> _NOTE:_ this is still incomplete; help is appreciated!  See https://github.com/mozilla/mentoring/issues/36.
-
 This application is composed of two parts: a Django backend (`mentoring/`) and a React frontend (`frontend/`).
 
 ### Frontend
@@ -27,6 +25,7 @@ yarn dev
 ```
 
 If you are planning to change the backend, this is all you need to do in the `frontend/` directory.
+You may need to repeat the last step (`yarn dev`) if you update your working copy to include changes made by others to the frontend.
 
 If you are making changes on the frontend, you can automatically rebuild every time a file changes with
 
@@ -34,11 +33,16 @@ If you are making changes on the frontend, you can automatically rebuild every t
 yarn dev --watch
 ```
 
+To run the tests,
+```shell
+yarn test
+```
+
 To actually load the frontend in the browser, you'll need to run the backend server, as described in the next section.
 
 ### Backend
 
-The backend is a normal Django app, so those familiar with Django should have no difficulty.
+The backend is a normal Django app, so those familiar with Django should have no difficulty setting it up.
 Those unfamiliar can find some background information [here](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/development_environment).
 
 You will need Python installed, at least version 3.6.
@@ -49,20 +53,23 @@ python3 -mvenv sandbox
 sandbox/bin/pip install -r requirements.txt
 ```
 
-You will need to set the following environment variables:
+The backend defaults to a development configuration, with a local database and local users.
+You'll need to set up that database and create a user.
 
- * `OIDC_RP_CLIENT_ID` (see README)
- * `OIDC_RP_CLIENT_SECRET`
- * `SECRET_KEY` (a long random value used for session hashing)
- * `PAIR_ID_HASH_SECRET` (a long random value used for hashing historical pairs)
-
-This will automatically configure a local database.
-To set the proper tables up in that database, run
-```
-sandbox/bin/python manage.py migrate
+```shell
+python3 manage.py migrate
 ```
 
-To run the server, use 
+```shell
+python3 manage.py createsuperuser
+Username: yourname
+Email address: (any email address)
+Password: 
+Password (again): 
+Superuser created successfully.
+```
+
+Finally, run the server:
 ```shell
 sandbox/bin/python manage.py runserver
 ```
@@ -73,7 +80,13 @@ Starting development server at http://127.0.0.1:8000/
 ```
 
 and you can access the server at that URL.
+Sign in as the new superuser you have created.
+From there, you can create a new non-superuser via the DB admin page, if you would like.
 
-> _NOTE:_ this isn't true, as settings.py requires HTTPS.  A tunnel service like `ngrok.io` can supply that, but not for free.
+To run the backend tests,
+```shell
+python3 manage.py test
+```
 
-When you return to the project on another day, you need only set up the environment variables again and invoke the `runserver` command.
+When you return to the project on another day, you need only invoke the `runserver` command.
+As you update your working copy to include database changes made by others, you may need to run the `migrate` command again as well.

@@ -44,7 +44,7 @@ class PairTest(TestCase):
         self.assertEqual(p.mentor.email, 'mmentor@mozilla.com')
         self.assertEqual(
             p.pair_id(),
-            'c872ad8e357ba35a27e54728ea72c49d75eb83a858ccb9b0fc4d7c30949eca11')
+            '7cad7224883ae75c7da6fa77a35be39df0f9f9003750ce3c5363dc0ff5f12865')
 
         self.assertFalse(HistoricalPair.already_paired(p))
 
