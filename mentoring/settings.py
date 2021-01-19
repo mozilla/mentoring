@@ -195,8 +195,8 @@ CSP_DEFAULT_SRC = ["'self'", "'unsafe-inline'"]
 # For development builds of the react app (`yarn dev`, not `yarn build`), eval is needed
 if DEBUG:
     CSP_DEFAULT_SRC.append("'unsafe-eval'")
-CSP_FONT_SRC = ["https://fonts.gstatic.com"]
-CSP_STYLE_SRC = ["'unsafe-inline'", "https://fonts.googleapis.com"]
+CSP_FONT_SRC = ["'self'", "https://fonts.gstatic.com"]
+CSP_STYLE_SRC = ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
