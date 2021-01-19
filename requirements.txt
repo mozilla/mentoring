@@ -6,3 +6,5 @@ pkg-resources==0.0.0
 pytz==2020.1
 sqlparse==0.4.1
 mozilla-django-oidc==1.2.4
+django-configurations==2.2
+
