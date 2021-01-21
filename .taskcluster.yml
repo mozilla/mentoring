@@ -26,6 +26,11 @@ tasks:
           cd frontend &&
           yarn --frozen-lockfile &&
           yarn lint
+      - name: Django tests
+        image: python:3.9
+        command: >-
+          pip install -r requirements.txt &&
+          python3 manage.py test
     each(opts):
       provisionerId: 'proj-misc'
       workerType: 'ci'
