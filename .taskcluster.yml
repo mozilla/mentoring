@@ -15,13 +15,13 @@ tasks:
   in:
     $map:
       - name: yarn test
-        image: node:12
+        image: node:14
         command: >-
           cd frontend &&
           yarn --frozen-lockfile &&
           yarn test
       - name: yarn lint
-        image: node:12
+        image: node:14
         command: >-
           cd frontend &&
           yarn --frozen-lockfile &&
