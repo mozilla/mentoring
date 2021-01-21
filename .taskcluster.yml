@@ -5,11 +5,11 @@ policy:
 tasks:
   $let:
     head_rev:
-      $if: 'tasks_for == "github-pull-request"'
+      $if: 'tasks_for == "github-pull-request" && event["action"] in ["opened", "reopened", "synchronize"]'
       then: ${event.pull_request.head.sha}
       else: ${event.after}
     repository:
-      $if: 'tasks_for == "github-pull-request"'
+      $if: 'tasks_for == "github-pull-request" && event["action"] in ["opened", "reopened", "synchronize"]'
       then: ${event.pull_request.head.repo.html_url}
       else: ${event.repository.html_url}
   in:
