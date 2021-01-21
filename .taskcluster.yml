@@ -31,6 +31,11 @@ tasks:
         command: >-
           pip install -r requirements.txt &&
           python3 manage.py test
+      - name: Python code style
+        image: python:3.9
+        command: >-
+          pip install pycodestyle &&
+          pycodestyle ./mentoring
     each(opts):
       provisionerId: 'proj-misc'
       workerType: 'ci'

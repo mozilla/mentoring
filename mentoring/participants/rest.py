@@ -2,6 +2,7 @@ from rest_framework import serializers, viewsets, permissions
 
 from .models import Participant
 
+
 class ParticipantSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Participant

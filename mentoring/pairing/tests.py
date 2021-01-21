@@ -8,10 +8,11 @@ from rest_framework.test import APIClient
 from .models import Pair, HistoricalPair
 from ..participants.models import Participant
 
+
 class PairTest(TestCase):
 
     def make_particips(self):
-        l = Participant(
+        learner = Participant(
             expires=datetime.datetime.now(pytz.UTC),
             email='llearner@mozilla.com',
             role=Participant.LEARNER,
@@ -20,9 +21,9 @@ class PairTest(TestCase):
             manager_email='mshur@mozilla.com',
             time_availability='N' * 24,
         )
-        l.save()
+        learner.save()
 
-        m = Participant(
+        mentor = Participant(
             expires=datetime.datetime.now(pytz.UTC),
             email='mmentor@mozilla.com',
             role=Participant.MENTOR,
@@ -31,13 +32,13 @@ class PairTest(TestCase):
             manager_email='mshur@mozilla.com',
             time_availability='N' * 24,
         )
-        m.save()
+        mentor.save()
 
-        return l, m
+        return learner, mentor
 
     def test_model_make_pair(self):
-        l, m = self.make_particips()
-        p = Pair(learner=l, mentor=m)
+        learner, mentor = self.make_particips()
+        p = Pair(learner=learner, mentor=mentor)
         p.save()
 
         self.assertEqual(p.learner.email, 'llearner@mozilla.com')
@@ -53,7 +54,7 @@ class PairTest(TestCase):
         self.assertTrue(HistoricalPair.already_paired(p))
 
     def test_make_pair_rest_mentor_as_learner(self):
-        l, m = self.make_particips()
+        learner, mentor = self.make_particips()
 
         client = APIClient()
         user = User.objects.create_superuser('test')
@@ -62,6 +63,6 @@ class PairTest(TestCase):
         res = client.post(
             '/api/pairs',
             # note that these are reversed
-            {'mentor': l.id, 'learner': m.id},
+            {'mentor': learner.id, 'learner': mentor.id},
             format='json')
         self.assertEqual(res.status_code, 400)

@@ -16,7 +16,7 @@ urlpatterns = [
 
     # if (and only if) we are in DEBUG mode (meaning Development), we allow
     # users to sign in using simple Django auth
-    ] + ([path('accounts/', include('django.contrib.auth.urls'))] if settings.DEBUG else []) + [
+] + ([path('accounts/', include('django.contrib.auth.urls'))] if settings.DEBUG else []) + [
 
     # ..and anything else renders the frontend
     path('', include('mentoring.frontend.urls')),

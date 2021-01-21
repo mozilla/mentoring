@@ -14,7 +14,7 @@ def validate_time_availability(time_availability):
 def validate_interests(interests):
     if type(interests) != list:
         raise ValidationError('interests must be a list')
-    if any(type(i) != type('') for i in interests):
+    if any(not isinstance(i, str) for i in interests):
         raise ValidationError('interests must contain strings')
 
 
@@ -45,7 +45,7 @@ class Participant(models.Model):
         help_text=dedent('''\
             The participant's role in the program.  Note that the same email may appear
             at most once in each role.'''),
-        )
+    )
 
     full_name = models.CharField(null=False, max_length=512, help_text=dedent('''\
         The participant's full name (as they would prefer to be called).'''))
@@ -67,7 +67,7 @@ class Participant(models.Model):
         help_text=dedent('''\
             The participant's time availability, as a sequence of Y and N for each UTC hour,
             so `NNNYYYYYYYYYNNNNNNNNNNNN` indicates availability from 03:00-12:00 UTC.'''),
-        )
+    )
 
     org = models.CharField(max_length=100, null=True, help_text=dedent('''\
         Participant's organization (roughly, executive to whom they report)'''))
@@ -78,11 +78,14 @@ class Participant(models.Model):
     time_at_org_level = models.CharField(max_length=10, null=True, help_text=dedent('''\
         Participant's time at current organizational level, e.g., `2-3 y`'''))
 
-    interests = models.JSONField(null=True, blank=False, help_text=dedent('''\
-        A learner's areas of interest, or a mentor's areas in which they can offer mentorship;
-        format is an array of open-text strings.'''),
+    interests = models.JSONField(
+        null=True,
+        blank=False,
+        help_text=dedent('''\
+            A learner's areas of interest, or a mentor's areas in which they can offer mentorship;
+            format is an array of open-text strings.'''),
         validators=[validate_interests],
-        )
+    )
 
     track_change = models.CharField(null=True, max_length=64, help_text=dedent('''\
         Whether the participant is interested in changing tracks (between IC and Manager)'''))
@@ -92,13 +95,13 @@ class Participant(models.Model):
         null=True,
         blank=False,
         help_text=dedent('''Preference for a pairing nearby or distant in the org chart (open text)''')
-        )
+    )
 
     comments = models.TextField(
         null=False,
         blank=True,
         help_text=dedent('''Open comments from the participant's enrollment'''),
-        )
+    )
 
     class Meta:
         db_table = "participants"
