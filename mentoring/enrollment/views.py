@@ -14,6 +14,7 @@ from ..participants.models import Participant
 
 logger = logging.getLogger(__name__)
 
+
 def time_availability(time_availability):
     '''Parse a list of 'xx:00 - xx:00 UTC' strings into the 24-hour format in the model'''
     rv = ['N'] * 24
@@ -59,7 +60,6 @@ def parse_form(form):
             org_chart_distance=form['org_chart_distance'],
             comments=form['comments'],
         )
-
 
 
 @require_http_methods(["POST"])

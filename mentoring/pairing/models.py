@@ -8,6 +8,7 @@ from django.db import models
 
 from ..participants.models import Participant
 
+
 class Pair(models.Model):
     """
     An active pairing in the program.
@@ -31,7 +32,7 @@ class Pair(models.Model):
 
     start_date = models.DateTimeField(
         null=False,
-        default=lambda: datetime.datetime.now(pytz.UTC), 
+        default=lambda: datetime.datetime.now(pytz.UTC),
         help_text=dedent('''Date this pairing began''')
     )
 

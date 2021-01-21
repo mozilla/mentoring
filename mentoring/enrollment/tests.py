@@ -8,6 +8,7 @@ from django.test import Client
 from ..participants.models import Participant
 from .views import time_availability
 
+
 class TimeAvailabilityTest(TestCase):
 
     def test_no_avail(self):
@@ -73,7 +74,7 @@ class PostTest(TestCase):
             assert(p.full_name == 'Alex Doe')
             assert(p.manager == 'Mana Jerr')
             assert(p.manager_email == 'mjerr@mozilla.com')
-            assert(p.approved == None)
+            assert(p.approved is None)
             assert(p.time_availability == 'YYYYYYNNNYYYNNNNNNNNNNNN')
             assert(p.org == 'Firefox')
             assert(p.org_level == 'P3')
@@ -121,7 +122,7 @@ class PostTest(TestCase):
         assert(p.full_name == 'Alex Doe')
         assert(p.manager == 'Mana Jerr')
         assert(p.manager_email == 'mjerr@mozilla.com')
-        assert(p.approved == None)
+        assert(p.approved is None)
         assert(p.time_availability == 'NNNNNNNNNYYYNNNNNNNNNNNN')
         assert(p.org == 'Firefox')
         assert(p.org_level == 'P3')
@@ -130,7 +131,7 @@ class PostTest(TestCase):
             'Increasing Impact on Mozilla Mission',
             'Public Speaking',
         ])
-        assert(p.track_change == None)
+        assert(p.track_change is None)
         assert(p.org_chart_distance == 'Prefer distant')
         assert(p.comments == 'asdf')
 

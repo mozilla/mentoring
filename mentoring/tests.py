@@ -4,6 +4,7 @@ from django.test import TestCase
 
 from .auth import MentoringAuthBackend
 
+
 class Auth(TestCase):
 
     def get_username(self):
