@@ -4,58 +4,62 @@ policy:
   pullRequests: public
 tasks:
   $let:
+    should_run:
+      {$eval: '(tasks_for == "github-push") || (tasks_for == "github-pull-request" && event["action"] in ["opened","reopened","synchronize"])'}
     head_rev:
-      $if: 'tasks_for == "github-pull-request" && event["action"] in ["opened", "reopened", "synchronize"]'
+      $if: 'tasks_for == "github-pull-request"'
       then: ${event.pull_request.head.sha}
       else: ${event.after}
     repository:
-      $if: 'tasks_for == "github-pull-request" && event["action"] in ["opened", "reopened", "synchronize"]'
+      $if: 'tasks_for == "github-pull-request"'
       then: ${event.pull_request.head.repo.html_url}
       else: ${event.repository.html_url}
   in:
-    $map:
-      - name: yarn test
-        image: node:14
-        command: >-
-          cd frontend &&
-          yarn --frozen-lockfile &&
-          yarn test
-      - name: yarn lint
-        image: node:14
-        command: >-
-          cd frontend &&
-          yarn --frozen-lockfile &&
-          yarn lint
-      - name: Django tests
-        image: python:3.9
-        command: >-
-          pip install -r requirements.txt &&
-          python3 manage.py test
-      - name: Python code style
-        image: python:3.9
-        command: >-
-          pip install pycodestyle &&
-          pycodestyle ./mentoring
-    each(opts):
-      provisionerId: 'proj-misc'
-      workerType: 'ci'
-      created: {$fromNow: ''}
-      deadline: {$fromNow: '1 hour'}
-      payload:
-        maxRunTime: 3600
-        image: "${opts.image}"
-        command:
-          - /bin/bash
-          - '--login'
-          - '-c'
-          - >-
-            git clone ${repository} repo &&
-            cd repo &&
-            git config advice.detachedHead false &&
-            git checkout ${head_rev} &&
-            ${opts.command}
-      metadata:
-        name: "${opts.name}"
-        description: Mentoring app CI
-        owner: nobody@mozilla.com
-        source: https://github.com/mozilla/mentoring
+    $if: should_run
+    then:
+      $map:
+        - name: yarn test
+          image: node:14
+          command: >-
+            cd frontend &&
+            yarn --frozen-lockfile &&
+            yarn test
+        - name: yarn lint
+          image: node:14
+          command: >-
+            cd frontend &&
+            yarn --frozen-lockfile &&
+            yarn lint
+        - name: Django tests
+          image: python:3.9
+          command: >-
+            pip install -r requirements.txt &&
+            python3 manage.py test
+        - name: Python code style
+          image: python:3.9
+          command: >-
+            pip install pycodestyle &&
+            pycodestyle ./mentoring
+      each(opts):
+        provisionerId: 'proj-misc'
+        workerType: 'ci'
+        created: {$fromNow: ''}
+        deadline: {$fromNow: '1 hour'}
+        payload:
+          maxRunTime: 3600
+          image: "${opts.image}"
+          command:
+            - /bin/bash
+            - '--login'
+            - '-c'
+            - >-
+              git clone ${repository} repo &&
+              cd repo &&
+              git config advice.detachedHead false &&
+              git checkout ${head_rev} &&
+              ${opts.command}
+        metadata:
+          name: "${opts.name}"
+          description: Mentoring app CI
+          owner: nobody@mozilla.com
+          source: https://github.com/mozilla/mentoring
