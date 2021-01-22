@@ -57,11 +57,11 @@ The backend defaults to a development configuration, with a local database and l
 You'll need to set up that database and create a user.
 
 ```shell
-python3 manage.py migrate
+sandbox/bin/python3 manage.py migrate
 ```
 
 ```shell
-python3 manage.py createsuperuser
+sandbox/bin/python3 manage.py createsuperuser
 Username: yourname
 Email address: (any email address)
 Password: 
@@ -71,7 +71,7 @@ Superuser created successfully.
 
 Finally, run the server:
 ```shell
-sandbox/bin/python manage.py runserver
+sandbox/bin/python3 manage.py runserver
 ```
 
 The result will show a message like
@@ -85,7 +85,7 @@ From there, you can create a new non-superuser via the DB admin page, if you wou
 
 To run the backend tests,
 ```shell
-python3 manage.py test
+sandbox/bin/python3 manage.py test
 ```
 
 When you return to the project on another day, you need only invoke the `runserver` command.
