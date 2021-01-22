@@ -5,6 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Home from './views/Home';
 import Pairing from './views/Pairing';
+import Enrollment from './views/Enrollment';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from './components/ErrorFallback';
 import { ThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
@@ -95,6 +96,12 @@ export default function App() {
               <Switch>
                 <Route path="/pairing">
                   <Pairing />
+                </Route>
+                <Route path="/enroll/mentor">
+                  <Enrollment role="mentor" />
+                </Route>
+                <Route path="/enroll/learner">
+                  <Enrollment role="learner" />
                 </Route>
                 <Route exact path="/">
                   <Home />
