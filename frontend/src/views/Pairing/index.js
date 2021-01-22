@@ -8,7 +8,7 @@ import { useParticipants } from '../../data/participants';
 import { usePostPairing } from '../../data/pairing';
 
 
-export default function Home() {
+export default function Pairing() {
   const [participants, refetchParticipants] = useParticipants();
   const [pair, postPairing] = usePostPairing();
   const [mentor, setMentor] = useState(null);
