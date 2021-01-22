@@ -5,6 +5,7 @@ from textwrap import dedent
 
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 
 from ..participants.models import Participant
 
@@ -32,7 +33,7 @@ class Pair(models.Model):
 
     start_date = models.DateTimeField(
         null=False,
-        default=lambda: datetime.datetime.now(pytz.UTC),
+        default=timezone.now,
         help_text=dedent('''Date this pairing began''')
     )
 
