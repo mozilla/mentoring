@@ -34,7 +34,8 @@ tasks:
           image: python:3.9
           command: >-
             pip install -r requirements.txt &&
-            python3 manage.py test
+            python3 manage.py test &&
+            python3 manage.py makemigrations --dry-run --check
         - name: Python code style
           image: python:3.9
           command: >-
