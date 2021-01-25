@@ -20,7 +20,8 @@ export const participantType = PropTypes.shape({
   org_chart_distance: PropTypes.string,
   org_level: PropTypes.string,
   time_at_org_level: PropTypes.string,
-  interests: PropTypes.arrayOf(PropTypes.string),
+  learner_interests: PropTypes.arrayOf(PropTypes.string),
+  mentor_interests: PropTypes.arrayOf(PropTypes.string),
   track_change: PropTypes.string,
   comments: PropTypes.string,
 });
