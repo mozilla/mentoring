@@ -9,7 +9,8 @@ class ParticipantSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             'id',
             'email',
-            'role',
+            'is_mentor',
+            'is_learner',
             'full_name',
             'manager',
             'approved',

@@ -10,7 +10,6 @@ class Base(Configuration):
     # Application definition
 
     INSTALLED_APPS = [
-        'mentoring.enrollment.apps.EnrollmentConfig',
         'mentoring.participants.apps.ParticipantsConfig',
         'mentoring.pairing.apps.PairingConfig',
         'mentoring.frontend.apps.FrontendConfig',

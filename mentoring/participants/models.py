@@ -23,11 +23,8 @@ class Participant(models.Model):
     A Participant in the program.
     """
 
-    MENTOR = 'M'
-    LEARNER = 'L'
-
     def __str__(self):
-        return f'{self.full_name} ({self.role})'
+        return f'{self.full_name}'
 
     expires = models.DateTimeField(null=False, help_text=dedent('''\
         The date that this information expires.  This can be extended (such as when
@@ -35,17 +32,14 @@ class Participant(models.Model):
         pair.  This field accomplishes the "lean data" practice of not keeping
         user information forever. '''))
 
-    email = models.EmailField(null=False, help_text=dedent('''\
+    email = models.EmailField(null=False, unique=True, help_text=dedent('''\
         The participant's work email address.  This is used as a key. '''))
 
-    role = models.CharField(
-        max_length=1,
-        null=False,
-        choices=[(MENTOR, 'Mentor'), (LEARNER, 'Learner')],
-        help_text=dedent('''\
-            The participant's role in the program.  Note that the same email may appear
-            at most once in each role.'''),
-    )
+    is_mentor = models.BooleanField(null=False, help_text=dedent('''\
+        True if this participant will act as a mentor.'''))
+
+    is_learner = models.BooleanField(null=False, help_text=dedent('''\
+        True if this participant will act as a learner.'''))
 
     full_name = models.CharField(null=False, max_length=512, help_text=dedent('''\
         The participant's full name (as they would prefer to be called).'''))
@@ -105,4 +99,3 @@ class Participant(models.Model):
 
     class Meta:
         db_table = "participants"
-        unique_together = (('email', 'role'))

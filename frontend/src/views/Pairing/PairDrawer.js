@@ -19,6 +19,15 @@ const useStyles = makeStyles(theme => ({
 export default function PairDrawer({ mentor, learner, open, pairing, onClose, onPair }) {
   const classes = useStyles();
 
+  if (!open) {
+    return null;
+  }
+
+  const issues = [];
+  if (mentor.id === learner.id) {
+    issues.push("The selected mentor and learner are are the same person")
+  }
+
   // TODO: show time compatibility, shared interests, etc.
 
   return (
@@ -32,10 +41,14 @@ export default function PairDrawer({ mentor, learner, open, pairing, onClose, on
       {open && (
         <Fragment>
           {pairing && <LinearProgress />}
-          <DialogTitle>Proposed Pair: {mentor.full_name} / {learner.full_name}</DialogTitle>
+          <DialogTitle>Proposed Pair: {mentor.full_name} (mentor) / {learner.full_name} (learner)</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              This seems like a great match, nice job!
+              {issues.length > 0 ? (
+                issues.join(", ")
+              ) : (
+                "This seems like a great match, nice job!"
+              )}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
