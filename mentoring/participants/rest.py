@@ -19,7 +19,8 @@ class ParticipantSerializer(serializers.HyperlinkedModelSerializer):
             'org_chart_distance',
             'org_level',
             'time_at_org_level',
-            'interests',
+            'learner_interests',
+            'mentor_interests',
             'track_change',
             'comments',
         ]

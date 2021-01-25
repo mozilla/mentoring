@@ -10,6 +10,7 @@ import { participantType } from '../data/participants';
 
 export default function Participant({ participant, omitTitle }) {
   // TODO: use a time-availability component to better display this
+  // TODO: take a `role` prop and only show learner / mentor props
   return (
     <TableContainer component={Paper}>
       <Table size="small" aria-label="participant information table">
@@ -42,11 +43,19 @@ export default function Participant({ participant, omitTitle }) {
               </TableCell>
             </TableRow>
           )}
-          {participant.interests.length > 0 && (
-            <TableRow data-testid="interests">
+          {participant.learner_interests && participant.learner_interests.length > 0 && (
+            <TableRow data-testid="learner_interests">
               <TableCell component="th">Interests</TableCell>
               <TableCell>
-                {participant.interests.map(i => <div key={i}>{i}</div>)}
+                {participant.learner_interests.map(i => <div key={i}>{i}</div>)}
+              </TableCell>
+            </TableRow>
+          )}
+          {participant.mentor_interests && participant.mentor_interests.length > 0 && (
+            <TableRow data-testid="mentor_interests">
+              <TableCell component="th">Interests</TableCell>
+              <TableCell>
+                {participant.mentor_interests.map(i => <div key={i}>{i}</div>)}
               </TableCell>
             </TableRow>
           )}

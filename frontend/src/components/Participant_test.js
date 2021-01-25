@@ -8,7 +8,8 @@ describe('Participant', () => {
     email: 'abcd@efg.com',
     manager: 'Big Boss',
     full_name: 'Ab Cd',
-    interests: [],
+    learner_interests: [],
+    mentor_interests: [],
     comments: '',
     time_availability: 'YYNNYYNNYYNNYYNNYYNNYYNN',
     ...particip,
@@ -64,17 +65,17 @@ describe('Participant', () => {
     expect(withinTableRow('org-level').getByText(/1y/)).toBeInTheDocument();
   });
 
-  test('omits interests when none given', () => {
-    const participant = makeParticip({ interests: [] });
+  test('omits learner_interests when none given', () => {
+    const participant = makeParticip({ learner_interests: [] });
     render(<Participant participant={participant} omitTitle />);
-    expect(screen.queryByTestId('interests')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('learner_interests')).not.toBeInTheDocument();
   });
 
-  test('renders interests', () => {
-    const participant = makeParticip({ interests: ['golf', 'cricket'] });
+  test('renders learner_interests', () => {
+    const participant = makeParticip({ learner_interests: ['golf', 'cricket'] });
     render(<Participant participant={participant}/>);
-    expect(withinTableRow('interests').getByText(/golf/)).toBeInTheDocument();
-    expect(withinTableRow('interests').getByText(/cricket/)).toBeInTheDocument();
+    expect(withinTableRow('learner_interests').getByText(/golf/)).toBeInTheDocument();
+    expect(withinTableRow('learner_interests').getByText(/cricket/)).toBeInTheDocument();
   });
 
   test('omits comments when none given', () => {

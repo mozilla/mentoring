@@ -72,17 +72,24 @@ class Participant(models.Model):
     time_at_org_level = models.CharField(max_length=10, null=True, help_text=dedent('''\
         Participant's time at current organizational level, e.g., `2-3 y`'''))
 
-    interests = models.JSONField(
+    mentor_interests = models.JSONField(
         null=True,
         blank=False,
         help_text=dedent('''\
-            A learner's areas of interest, or a mentor's areas in which they can offer mentorship;
-            format is an array of open-text strings.'''),
+            A mentor's areas in which they can offer mentorship; format is an array of open-text strings.'''),
+        validators=[validate_interests],
+    )
+
+    learner_interests = models.JSONField(
+        null=True,
+        blank=False,
+        help_text=dedent('''\
+            A learner's areas of interest; format is an array of open-text strings.'''),
         validators=[validate_interests],
     )
 
     track_change = models.CharField(null=True, max_length=64, help_text=dedent('''\
-        Whether the participant is interested in changing tracks (between IC and Manager)'''))
+        Whether a learner is interested in changing tracks (between IC and Manager)'''))
 
     org_chart_distance = models.CharField(
         max_length=20,
