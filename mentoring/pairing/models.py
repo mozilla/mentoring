@@ -22,13 +22,13 @@ class Pair(models.Model):
         Participant,
         related_name='learner_pairing',
         on_delete=models.RESTRICT,
-        limit_choices_to={"role": Participant.LEARNER},
+        limit_choices_to={"is_learner": True},
     )
     mentor = models.ForeignKey(
         Participant,
         related_name='mentor_pairing',
         on_delete=models.RESTRICT,
-        limit_choices_to={"role": Participant.MENTOR},
+        limit_choices_to={"is_mentor": True},
     )
 
     start_date = models.DateTimeField(

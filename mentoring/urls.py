@@ -5,8 +5,6 @@ from django.urls import include, path
 from . import rest
 
 urlpatterns = [
-    # the POST destination for enrollment via SurveyGizmo
-    path('enrollment/', include('mentoring.enrollment.urls')),
     # the Django admin
     path('admin/', admin.site.urls),
     # the API

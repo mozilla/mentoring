@@ -15,7 +15,8 @@ class PairTest(TestCase):
         learner = Participant(
             expires=datetime.datetime.now(pytz.UTC),
             email='llearner@mozilla.com',
-            role=Participant.LEARNER,
+            is_learner=True,
+            is_mentor=False,
             full_name='Logan Learner',
             manager='Mani Shur',
             manager_email='mshur@mozilla.com',
@@ -26,7 +27,8 @@ class PairTest(TestCase):
         mentor = Participant(
             expires=datetime.datetime.now(pytz.UTC),
             email='mmentor@mozilla.com',
-            role=Participant.MENTOR,
+            is_learner=False,
+            is_mentor=True,
             full_name='Murphy Mentor',
             manager='Mani Shur',
             manager_email='mshur@mozilla.com',
@@ -52,6 +54,23 @@ class PairTest(TestCase):
         HistoricalPair.record_pairing(p)
 
         self.assertTrue(HistoricalPair.already_paired(p))
+
+    def test_make_pair_rest(self):
+        learner, mentor = self.make_particips()
+
+        client = APIClient()
+        user = User.objects.create_superuser('test')
+        user.save()
+        client.force_authenticate(user=user)
+        res = client.post(
+            '/api/pairs',
+            {'learner': learner.id, 'mentor': mentor.id},
+            format='json')
+        self.assertEqual(res.status_code, 201)
+
+        pair = Pair.objects.get()
+        self.assertEqual(pair.mentor.id, mentor.id)
+        self.assertEqual(pair.learner.id, learner.id)
 
     def test_make_pair_rest_mentor_as_learner(self):
         learner, mentor = self.make_particips()

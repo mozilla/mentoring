@@ -6,9 +6,9 @@ from ..participants.models import Participant
 
 class PairSerializer(serializers.HyperlinkedModelSerializer):
     mentor = serializers.PrimaryKeyRelatedField(
-        queryset=Participant.objects.all().filter(role=Participant.MENTOR))
+        queryset=Participant.objects.all().filter(is_mentor=True))
     learner = serializers.PrimaryKeyRelatedField(
-        queryset=Participant.objects.all().filter(role=Participant.LEARNER))
+        queryset=Participant.objects.all().filter(is_learner=True))
 
     class Meta:
         model = Pair
