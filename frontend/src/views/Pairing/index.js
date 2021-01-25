@@ -25,6 +25,7 @@ export default function Home() {
       <Loading loads={ [ participants ] } errorOnly={ [ pair ] }>
         <ParticipantColumn
           title="Mentors"
+          role="mentor"
           participants={participants.data?.filter(p => p.is_mentor)}
           onSelect={p => {
             if (!pair.loading) {
@@ -35,6 +36,7 @@ export default function Home() {
           selected={mentor} />
         <ParticipantColumn
           title="Learners"
+          role="learner"
           participants={participants.data?.filter(p => p.is_learner)}
           onSelect={p => {
             if (!pair.loading) {
