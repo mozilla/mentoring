@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ParticipantColumn({ participants, title, onSelect, selected }) {
+export default function ParticipantColumn({ participants, role, title, onSelect, selected }) {
   const classes = useStyles();
 
   return (
@@ -37,7 +37,7 @@ export default function ParticipantColumn({ participants, title, onSelect, selec
 								label={p.full_name} />
             </AccordionSummary>
             <AccordionDetails>
-              <Participant key={p.id} participant={p} />
+              <Participant role={role} key={p.id} participant={p} />
             </AccordionDetails>
           </Accordion>
         ))}
@@ -51,6 +51,9 @@ ParticipantColumn.propTypes = {
 
   // the response from useParticipants
   participants: PropTypes.arrayOf(participantType),
+
+  // The role to display
+  role: PropTypes.oneOf(['mentor', 'learner']),
 
   // callback when a participant is selected
   onSelect: PropTypes.func.isRequired,
