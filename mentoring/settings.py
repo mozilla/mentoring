@@ -99,6 +99,10 @@ class Base(Configuration):
     STATIC_URL = '/static/'
     STATICFILES_DIRS = [BASE_DIR / "static"]
 
+    # Trust X-Forwarded-Proto to signify a secure connection
+    # (even in dev, this is useful if using a tunnel service)
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 
 class Production(Base):
     DEBUG = False
@@ -129,9 +133,6 @@ class Production(Base):
     # Members of these Mozilla SSO groups will be Django staff, able to do everything;
     # this capability is given to committee members.
     STAFF_GROUPS = ['mozilliansorg_mentoring-committee']
-
-    # Trust X-Forwarded-Proto to signify a secure connection
-    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
     # security settings
     SECURE_HSTS_SECONDS = 3600
