@@ -15,6 +15,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
+import InterestsControl from '../../components/InterestsControl';
 
 const useStyles = makeStyles(theme => ({
   formCard: {
@@ -43,6 +44,14 @@ const TIMES_AT_ORG_LEVEL = [
   {key: "2-3 years", text: "2-3 years"},
   {key: "3-5 years", text: "3-5 years"},
   {key: ">6 years", text: "6 or more years"},
+];
+const CANNED_INTERESTS = [
+  "Technical Leadership",
+  "Public Speaking",
+  "Interpersonal Communication",
+  "Time Management",
+  "Increasing Impact on Mozilla's Mission",
+  "Getting Things Done at Mozilla (navigating organizational culture)",
 ];
 
 // A link in a form control's help text, opening in a new page and not in the tab index.
@@ -79,10 +88,24 @@ export default function EnrollmentForm({ participant, onParticipantChange, onSub
     });
   };
 
+  const setLearnerInterests = learner_interests => {
+    onParticipantChange({
+      ...participant,
+      learner_interests,
+    });
+  };
+
+  const setMentorInterests = mentor_interests => {
+    onParticipantChange({
+      ...participant,
+      mentor_interests,
+    });
+  };
+
   // each control uses a pretty similar set of properties, so we calculate
   // those here, and override below.
   const textFieldProps = attr => ({
-    variant: 'filled',
+    variant: 'outlined',
     label: titleCase(attr.replace(/_/g, ' ')),
     name: attr,
     value: participant[attr],
@@ -191,16 +214,6 @@ export default function EnrollmentForm({ participant, onParticipantChange, onSub
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                {...textFieldProps('track_change')}
-                label="Track Change"
-                disabled={!learner}
-                select
-                helperText="Are you considering change track (such as between IC and management)?" >
-                {menuItems(TRACK_CHANGE_INTEREST)}
-              </TextField>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
                 {...textFieldProps('time_at_org_level')}
                 label="Time at Level"
                 select
@@ -217,24 +230,40 @@ export default function EnrollmentForm({ participant, onParticipantChange, onSub
                 {menuItems(ORG_CHART_DISTANCES)}
               </TextField>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6}>
               <TextField
-                {...textFieldProps('learner_interests')}
+                {...textFieldProps('track_change')}
+                label="Track Change"
                 disabled={!learner}
-                multiline
-                helperText="(As learner) Select the topics where you are interested in improving" />
+                select
+                helperText="Are you considering change track (such as between IC and management)?" >
+                {menuItems(TRACK_CHANGE_INTEREST)}
+              </TextField>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                {...textFieldProps('mentor_interests')}
+            <Grid item sm={6} />
+            <Grid item xs={12} sm={6}>
+              <InterestsControl
+                title="Learner Interests"
+                subheader="Select the topics where you are interested in improving"
+                disabled={!learner}
+                choices={CANNED_INTERESTS}
+                interests={participant.learner_interests}
+                onChange={setLearnerInterests} />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <InterestsControl
+                title="Mentor Interests"
+                subheader="Select the topics on which you can offer mentorship"
                 disabled={!mentor}
-                multiline
-                helperText="(As mentor) Select the topics on which you can offer mentorship" />
+                choices={CANNED_INTERESTS}
+                interests={participant.mentor_interests}
+                onChange={setMentorInterests} />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 {...textFieldProps('comments')}
                 multiline
+                rows={4}
                 required={false}
                 helperText="What else should the committe know when looking for your partner?" />
             </Grid>
@@ -260,8 +289,8 @@ EnrollmentForm.propTypes = {
     org: propTypes.string.isRequired,
     org_level: propTypes.string.isRequired,
     time_at_org_level: propTypes.string.isRequired,
-    mentor_interests: propTypes.string.isRequired,
-    learner_interests: propTypes.string.isRequired,
+    learner_interests: propTypes.arrayOf(propTypes.string).isRequired,
+    mentor_interests: propTypes.arrayOf(propTypes.string).isRequired,
     track_change: propTypes.string.isRequired,
     org_chart_distance: propTypes.string.isRequired,
     comments: propTypes.string.isRequired,
