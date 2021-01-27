@@ -16,6 +16,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import InterestsControl from '../../components/InterestsControl';
+import { participantType } from '../../data/participants';
 
 const useStyles = makeStyles(theme => ({
   formCard: {
@@ -64,7 +65,7 @@ InfoLink.propTypes = {
   children: propTypes.node.isRequired,
 };
 
-export default function EnrollmentForm({ participant, onParticipantChange, onSubmit }) {
+export default function EnrollmentForm({ participant, update, onParticipantChange, onSubmit }) {
   const classes = useStyles();
 
   const mentor = participant.is_mentor;
@@ -270,7 +271,7 @@ export default function EnrollmentForm({ participant, onParticipantChange, onSub
           </Grid>
         </CardContent>
         <CardActions>
-          <Button type="submit" color="primary">{either ? "Enroll" : "Leave"}</Button>
+          <Button type="submit" color="primary">{either ? (update ? "Update" : "Enroll") : "Leave"}</Button>
         </CardActions>
       </Card>
     </form>
@@ -278,23 +279,9 @@ export default function EnrollmentForm({ participant, onParticipantChange, onSub
 }
 
 EnrollmentForm.propTypes = {
-  participant: propTypes.shape({
-    full_name: propTypes.string.isRequired,
-    email: propTypes.string.isRequired,
-    is_mentor: propTypes.bool.isRequired,
-    is_learner: propTypes.bool.isRequired,
-    manager: propTypes.string.isRequired,
-    manager_email: propTypes.string.isRequired,
-    time_availability: propTypes.string.isRequired,
-    org: propTypes.string.isRequired,
-    org_level: propTypes.string.isRequired,
-    time_at_org_level: propTypes.string.isRequired,
-    learner_interests: propTypes.arrayOf(propTypes.string).isRequired,
-    mentor_interests: propTypes.arrayOf(propTypes.string).isRequired,
-    track_change: propTypes.string.isRequired,
-    org_chart_distance: propTypes.string.isRequired,
-    comments: propTypes.string.isRequired,
-  }).isRequired,
+  participant: participantType.isRequired,
+  // if true, this is updating an existing enrollment
+  update: propTypes.bool,
   onParticipantChange: propTypes.func.isRequired,
   onSubmit: propTypes.func.isRequired,
 };

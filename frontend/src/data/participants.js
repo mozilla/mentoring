@@ -1,5 +1,5 @@
 import useAxios from 'axios-hooks'
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 
 // Return [{loading, error, data}, refetch] where data is the full set
 // of current participants
@@ -7,21 +7,33 @@ export function useParticipants() {
   return useAxios('/api/participants');
 }
 
-// a PropTypes shape describing the data expected from the API
-export const participantType = PropTypes.shape({
-  id: PropTypes.number.isRequired,
-  email: PropTypes.string.isRequired,
-  role: PropTypes.oneOf(['M', 'L']),
-  full_name: PropTypes.string.isRequired,
-  manager: PropTypes.string.isRequired,
-  approved: PropTypes.bool,
-  time_availability: PropTypes.string.isRequired,
-  org: PropTypes.string,
-  org_chart_distance: PropTypes.string,
-  org_level: PropTypes.string,
-  time_at_org_level: PropTypes.string,
-  learner_interests: PropTypes.arrayOf(PropTypes.string),
-  mentor_interests: PropTypes.arrayOf(PropTypes.string),
-  track_change: PropTypes.string,
-  comments: PropTypes.string,
+// Return [{loading, error, participant}], fetching the
+// participant by email address.  If the response is a 404,
+// the result is [{loading: false, error: null, participant: null}].
+export function useParticipantByEmail(email) {
+  const [{ loading, error, data: participant }] = useAxios(`/api/participants/by_email?email=${encodeURIComponent(email)}`);
+  if (error?.response?.status === 404) {
+    return [{ loading: false, error: null, participant: null }];
+  }
+  return [{ loading, error, participant }];
+}
+
+// a propTypes shape describing the data expected from the API
+export const participantType = propTypes.shape({
+  id: propTypes.number.isRequired,
+  full_name: propTypes.string.isRequired,
+  email: propTypes.string.isRequired,
+  is_mentor: propTypes.bool.isRequired,
+  is_learner: propTypes.bool.isRequired,
+  manager: propTypes.string.isRequired,
+  manager_email: propTypes.string.isRequired,
+  time_availability: propTypes.string.isRequired,
+  org: propTypes.string.isRequired,
+  org_level: propTypes.string.isRequired,
+  time_at_org_level: propTypes.string.isRequired,
+  learner_interests: propTypes.arrayOf(propTypes.string).isRequired,
+  mentor_interests: propTypes.arrayOf(propTypes.string).isRequired,
+  track_change: propTypes.string.isRequired,
+  org_chart_distance: propTypes.string.isRequired,
+  comments: propTypes.string.isRequired,
 });

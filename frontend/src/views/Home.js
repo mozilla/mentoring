@@ -13,6 +13,8 @@ import ApiIcon from 'mdi-react/ApiIcon';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
+import Loading from '../components/Loading';
+import { useParticipantByEmail } from '../data/participants';
 
 const useStyles = makeStyles(theme => ({
   callToActionGrid: {
@@ -59,26 +61,39 @@ export default function Home() {
     </Card>
   );
 
-  const signupCard = role => {
-    let action, button;
-    if (role === 'mentor') {
-      action = "mentor another Mozillian";
-      button = "Sign Up as a Mentor";
-    } else {
-      action = "learn and grow with help from a mentor";
-      button = "Sign Up as a Learner";
+  const signupCard = action => {
+    let likeTo, button, link;
+    switch (action) {
+      case 'mentor': {
+        likeTo = "mentor another Mozillian";
+        button = "Sign Up as a Mentor";
+        link = "/enroll/mentor";
+        break;
+      }
+      case 'learn': {
+        likeTo = "learn and grow with help from a mentor";
+        button = "Sign Up as a Learner";
+        link = "/enroll/learner";
+        break;
+      }
+      case 'update': {
+        likeTo = "update my enrollment in the mentoring program";
+        button = "Update Enrollment";
+        link = "/enroll/update";
+        break;
+      }
     }
 
     const handleClick = () => {
-      history.push(`/enroll/${role}`);
+      history.push(link);
     };
 
     return (
-      <Grid key={role} item>
+      <Grid key={action} item>
         <Card raised className={classes.callToActionCard}>
           <CardContent>
             <Typography variant="body1" color="textSecondary" gutterBottom>
-              I would like to {action}
+              I would like to {likeTo}
             </Typography>
             <Grid container justify="center">
               <Grid item>
@@ -93,12 +108,17 @@ export default function Home() {
     );
   };
 
+  const { user } = MENTORING_SETTINGS;
+  const [existing] = useParticipantByEmail(user.email);
+
   return (
     <Fragment>
       <Grid container className={classes.callToActionGrid}>
         <Grid item xs={12} className={classes.homeRow}>
           <Grid container justify="center" spacing={6}>
-            {["mentor", "learner"].map(signupCard)}
+            <Loading loads={[existing]}>
+              {(existing.participant ? ["update"] : ["mentor", "learn"]).map(signupCard)}
+            </Loading>
           </Grid>
         </Grid>
         {MENTORING_SETTINGS.user.is_staff && (

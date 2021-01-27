@@ -30,6 +30,24 @@ export const api = {
   },
 
   /**
+   * Given participant, by email (note: no schema is enforced on participants)
+   */
+  participantByEmail(email, participant) {
+    let response;
+    if (participant) {
+      response = { data: participant, loading: false };
+    } else {
+      const error = new Error('not found');
+      error.response = { status: 404 };
+      response = { error, loading: false };
+    }
+    return {
+      config: { method: 'GET', url: `/api/participants/by_email?email=${encodeURIComponent(email)}` },
+      implementation: [ response, jest.fn() ],
+    };
+  },
+
+  /**
    * Given pairs (note: no schema is enforced on participants)
    */
   pairs() {

@@ -103,6 +103,9 @@ export default function App() {
                 <Route path="/enroll/learner">
                   <Enrollment role="learner" />
                 </Route>
+                <Route path="/enroll/update">
+                  <Enrollment update />
+                </Route>
                 <Route exact path="/">
                   <Home />
                 </Route>
