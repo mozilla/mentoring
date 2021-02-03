@@ -17,6 +17,7 @@ export default function RangeSelection({ range, onChange }) {
 
   return (
     <Slider
+      data-testid="range-slider"
       min={0}
       max={24}
       marks={marks}

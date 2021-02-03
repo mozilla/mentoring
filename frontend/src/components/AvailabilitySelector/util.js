@@ -23,14 +23,15 @@ export const rangeToYN = ([a, b]) => {
 
 // convert the given YYNN string into a range, if possible
 export const ynToRange = yn => {
-  const match = yn.match(/^(N*)(Y*)N*$/);
+  const match = yn.match(/^(N*)(Y+)N*$/);
   if (match) {
     return [match[1].length, match[1].length + match[2].length];
   }
   return null;
 };
 
-const TZ_OFFSET_POSITIVE_HOURS = (Math.floor(new Date().getTimezoneOffset() / 60) + 24) % 24;
+let TZ_OFFSET_POSITIVE_HOURS = (Math.floor(new Date().getTimezoneOffset() / 60) + 24) % 24;
+export const set_TZ_OFFSET_POSITIVE_HOURS = h => TZ_OFFSET_POSITIVE_HOURS = h;
 
 // Convert a YYNN string from UTC to the user's local timezone.
 // This ignores any additional minutes on non-hour-offset timezones.
