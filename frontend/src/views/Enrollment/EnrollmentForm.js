@@ -16,6 +16,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import InterestsControl from '../../components/InterestsControl';
+import AvailabilitySelector from '../../components/AvailabilitySelector';
 import { participantType } from '../../data/participants';
 
 const useStyles = makeStyles(theme => ({
@@ -88,6 +89,13 @@ export default function EnrollmentForm({ participant, update, onParticipantChang
       [name]: !participant[name],
     });
   };
+
+  const handleTimeAvailabilityChange = timeAvailability => {
+    onParticipantChange({
+      ...participant,
+      time_availability: timeAvailability,
+    });
+  }
 
   const setLearnerInterests = learner_interests => {
     onParticipantChange({
@@ -189,10 +197,7 @@ export default function EnrollmentForm({ participant, update, onParticipantChang
                 helperText="Your manager's email" />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                {...textFieldProps('time_availability')}
-                helperText="We want to select a match with whom you can meet at a time that is comfortable for both of you.
-                  Please indicate in which time ranges you are able to meet on a typical weekday." />
+              <AvailabilitySelector timeAvailability={participant.time_availability} onChange={handleTimeAvailabilityChange} />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
