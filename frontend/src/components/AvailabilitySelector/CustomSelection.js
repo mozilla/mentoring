@@ -27,7 +27,7 @@ export default function CustomSelection({ value, onChange }) {
   };
 
   return (
-    <Grid container justify="center">
+    <Grid data-testid="custom-selection" container justify="center">
         {[0, 12].map(q => (
           <Grid item key={q} xs={12} sm={6}>
             <List dense>
