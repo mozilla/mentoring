@@ -22,3 +22,11 @@ class PairSerializer(serializers.HyperlinkedModelSerializer):
 class PairViewSet(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
     queryset = Pair.objects.all()
     serializer_class = PairSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+        # bump expiration for the participants involved
+        for participant in (serializer.validated_data[k] for k in ['learner', 'mentor']):
+            participant.bump_expiration()
+            participant.save()

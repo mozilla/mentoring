@@ -66,4 +66,24 @@ export const api = {
       implementation: [ { loading: false }, cb ],
     };
   },
+
+  /**
+   * Call the given callback when a participant is posted (created)
+   */
+  onCreateParticipant(cb) {
+    return {
+      config: { method: 'POST', url: '/api/participants' },
+      implementation: [ { loading: false }, cb ],
+    };
+  },
+
+  /**
+   * Call the given callback when a participant is PUT (updated).
+   */
+  onUpdateParticipant(id, cb) {
+    return {
+      config: { method: 'PUT', url: `/api/participants/${id}` },
+      implementation: [ { loading: false }, cb ],
+    };
+  },
 }
