@@ -15,6 +15,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import InterestsControl from '../../components/InterestsControl';
 import AvailabilitySelector from '../../components/AvailabilitySelector';
 import { participantType } from '../../data/participants';
@@ -23,6 +24,16 @@ const useStyles = makeStyles(theme => ({
   formCard: {
     maxWidth: "80em",
     margin: theme.spacing(2),
+  },
+  buttonWrapper: {
+    position: 'relative',
+  },
+  buttonProgress: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
   },
 }));
 
@@ -66,7 +77,7 @@ InfoLink.propTypes = {
   children: propTypes.node.isRequired,
 };
 
-export default function EnrollmentForm({ participant, update, onParticipantChange, onSubmit }) {
+export default function EnrollmentForm({ participant, update, onParticipantChange, onSubmit, submitLoading }) {
   const classes = useStyles();
 
   const mentor = participant.is_mentor;
@@ -241,6 +252,7 @@ export default function EnrollmentForm({ participant, update, onParticipantChang
                 {...textFieldProps('track_change')}
                 label="Track Change"
                 disabled={!learner}
+                required={learner}
                 select
                 helperText="Are you considering change track (such as between IC and management)?" >
                 {menuItems(TRACK_CHANGE_INTEREST)}
@@ -276,7 +288,12 @@ export default function EnrollmentForm({ participant, update, onParticipantChang
           </Grid>
         </CardContent>
         <CardActions>
-          <Button type="submit" color="primary">{either ? (update ? "Update" : "Enroll") : "Leave"}</Button>
+          <div className={classes.buttonWrapper}>
+            <Button disabled={submitLoading} type="submit" color="primary">
+              {either ? (update ? "Update" : "Enroll") : "Leave"}
+            </Button>
+            {submitLoading && <CircularProgress size={24} className={classes.buttonProgress} />}
+          </div>
         </CardActions>
       </Card>
     </form>
@@ -289,4 +306,5 @@ EnrollmentForm.propTypes = {
   update: propTypes.bool,
   onParticipantChange: propTypes.func.isRequired,
   onSubmit: propTypes.func.isRequired,
+  submitLoading: propTypes.bool.isRequired,
 };

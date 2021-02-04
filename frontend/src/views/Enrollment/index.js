@@ -3,9 +3,11 @@ import propTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import Grid from '@material-ui/core/Grid';
 import { useParticipantByEmail } from '../../data/participants';
+import AvailabilitySelector from '../../components/AvailabilitySelector';
 import Loading from '../../components/Loading';
 import EnrollmentForm from './EnrollmentForm';
-import { participantType } from '../../data/participants';
+import PostedDialog from './PostedDialog';
+import { participantType, usePostParticipant } from '../../data/participants';
 
 export default function Enrollment({ role, update }) {
   const { user } = MENTORING_SETTINGS;
@@ -13,20 +15,20 @@ export default function Enrollment({ role, update }) {
   // load the participant's enrollment from the API, if present
   const [existing] = useParticipantByEmail(user.email);
   const initialParticipant = existing.participant ? existing.participant : {
-    id: 0,
+    // no `id` property, meaning a new participant
     full_name: `${user.first_name} ${user.last_name}`.trim(),
     email: user.email,
     manager: '',
     manager_email: '',
     is_mentor: role === 'mentor',
-    is_learner: role === 'learner' || update, // default this to true for updates, just in case
-    time_availability: 'NNNNNNNNNNNNNNNNNNNNNNNN',
+    is_learner: role === 'learner' || Boolean(update),
+    time_availability: AvailabilitySelector.default(),
     org: '',
     org_level: '',
     time_at_org_level: '',
     learner_interests: [],
     mentor_interests: [],
-    track_change: '',
+    track_change: 'maybe', // default for mentors, since the choice is disabled
     org_chart_distance: '',
     comments: '',
   };
@@ -47,26 +49,44 @@ Enrollment.propTypes = {
 // participant is loaded.
 function WithLoadedParticipant({ update, initialParticipant }) {
   const [participant, setParticipant] = useState(initialParticipant);
+  const [{loading: postLoading, error: postError}, postParticipant] = usePostParticipant(participant);
+  const [posted, setPosted] = useState(false);
 
   const handleSubmit = event => {
-    console.log(participant);
+    postParticipant().then(
+      () => setPosted(true),
+      // errors are reported via postError, so ignore them here
+      () => {});
     event.preventDefault();
   };
+
+  if (postError) {
+    return (
+      <div>
+        <h2>Error</h2>
+        <pre>{postError.toString()}</pre>
+      </div>
+    );
+  }
 
   return (
     <Fragment>
       <Helmet>
         <title>Mozilla Mentorship Program - Enrollment</title>
       </Helmet>
-      <Grid container justify="center">
-        <Grid item>
-          <EnrollmentForm
-            update={update}
-            participant={participant}
-            onParticipantChange={setParticipant}
-            onSubmit={handleSubmit} />
+      {posted ? <PostedDialog /> : (
+        <Grid container justify="center">
+          <Grid item>
+            <EnrollmentForm
+              update={update}
+              participant={participant}
+              onParticipantChange={setParticipant}
+              onSubmit={handleSubmit}
+              submitLoading={postLoading}
+            />
+          </Grid>
         </Grid>
-      </Grid>
+      )}
     </Fragment>
   );
 }

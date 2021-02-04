@@ -72,6 +72,10 @@ class PairTest(TestCase):
         self.assertEqual(pair.mentor.id, mentor.id)
         self.assertEqual(pair.learner.id, learner.id)
 
+        # check that expirations have been bumped
+        self.assertGreater(pair.mentor.expires, datetime.datetime.now(pytz.UTC))
+        self.assertGreater(pair.learner.expires, datetime.datetime.now(pytz.UTC))
+
     def test_make_pair_rest_mentor_as_learner(self):
         learner, mentor = self.make_particips()
 

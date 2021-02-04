@@ -1,5 +1,5 @@
-import { renderHook } from '@testing-library/react-hooks'
-import { useParticipants, useParticipantByEmail } from './participants';
+import { renderHook, act } from '@testing-library/react-hooks'
+import { useParticipants, useParticipantByEmail, usePostParticipant } from './participants';
 import { api } from '../../test/helper';
 
 jest.mock('axios-hooks');
@@ -46,3 +46,37 @@ describe('useParticipantByEmail', () => {
     expect(result.current[0].participant).toBeFalsy();
   });
 });
+
+describe('usePostParticipant', () => {
+  test('create', async () => {
+    let posted;
+    api.mock(api.onCreateParticipant(arg => { posted = arg; }));
+    const { result } = renderHook(() => usePostParticipant({
+      full_name: 'Averill',
+    }));
+    const [participant, postParticipant] = result.current;
+
+    // nothing has happened yet
+    expect(participant.loading).toBeFalsy();
+    expect(posted).toBeFalsy();
+
+    act(() => postParticipant());
+  });
+
+  test('update', async () => {
+    let posted;
+    api.mock(api.onUpdateParticipant(13, arg => { posted = arg; }));
+    const { result } = renderHook(() => usePostParticipant({
+      id: 13,
+      full_name: 'Averill',
+    }));
+    const [participant, postParticipant] = result.current;
+
+    // nothing has happened yet
+    expect(participant.loading).toBeFalsy();
+    expect(posted).toBeFalsy();
+
+    act(() => postParticipant());
+  });
+});
+

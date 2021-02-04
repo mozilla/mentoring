@@ -44,8 +44,8 @@ export default function AvailabilitySelector({ timeAvailability, onChange }) {
 
   // if null or invalid, treat as 9-5 local time
   if (timeAvailability === null || timeAvailability.length !== 24) {
-    timeAvailability = localToUtc('NNNNNNNNNYYYYYYYYNNNNNNN');
-    onChange(timeAvailability);
+    console.error(`Invalid timeAvailability value ${timeAvailability}; substituting default`);
+    timeAvailability = AvailabilitySelector.default();
   }
 
   // translate the availability to local time by rotating the string
@@ -118,3 +118,7 @@ AvailabilitySelector.propTypes = {
   onChange: propTypes.func.isRequired,
 };
 
+// Get a default value for this component (which depends on the timezon)
+AvailabilitySelector.default = () => {
+  return localToUtc('NNNNNNNNNYYYYYYYYNNNNNNN');
+}

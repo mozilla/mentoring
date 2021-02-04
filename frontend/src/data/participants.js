@@ -18,9 +18,29 @@ export function useParticipantByEmail(email) {
   return [{ loading, error, participant }];
 }
 
+// Return [{loading, error}, postParticipant] where postParticipant() will
+// asynchronously post that partcipant to the backend.  If `participant.id` is
+// set, then the participant will be updated; otherwise, it will be created.
+export function usePostParticipant(participant) {
+  const {id, ...data} = participant;
+  return useAxios({
+    ...(id === undefined ? {
+      // create a participant
+      url: '/api/participants',
+      method: 'POST',
+    } : {
+      // update an existing participant
+      url: `/api/participants/${id}`,
+      method: 'PUT',
+    }),
+    data,
+    headers: { 'X-CSRFToken': MENTORING_SETTINGS.csrftoken },
+  }, { manual: true });
+}
+
 // a propTypes shape describing the data expected from the API
 export const participantType = propTypes.shape({
-  id: propTypes.number.isRequired,
+  id: propTypes.number,
   full_name: propTypes.string.isRequired,
   email: propTypes.string.isRequired,
   is_mentor: propTypes.bool.isRequired,

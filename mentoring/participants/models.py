@@ -1,4 +1,8 @@
+import pytz
+import datetime
+
 from django.db import models
+from django.conf import settings
 from textwrap import dedent
 
 from django.core.exceptions import ValidationError
@@ -18,6 +22,11 @@ def validate_interests(interests):
         raise ValidationError('interests must contain strings')
 
 
+def current_expiration():
+    """Return an appropriate expiration date for a participant updated today."""
+    return datetime.datetime.now(pytz.UTC) + datetime.timedelta(days=settings.DATA_RETENTION_DAYS)
+
+
 class Participant(models.Model):
     """
     A Participant in the program.
@@ -26,11 +35,14 @@ class Participant(models.Model):
     def __str__(self):
         return f'{self.full_name}'
 
-    expires = models.DateTimeField(null=False, help_text=dedent('''\
-        The date that this information expires.  This can be extended (such as when
-        a pairing is made), and expiration is contingent on not being in a current
-        pair.  This field accomplishes the "lean data" practice of not keeping
-        user information forever. '''))
+    expires = models.DateTimeField(
+        null=False,
+        default=current_expiration,
+        help_text=dedent('''\
+            The date that this information expires.  This can be extended (such as when
+            a pairing is made), and expiration is contingent on not being in a current
+            pair.  This field accomplishes the "lean data" practice of not keeping
+            user information forever. '''))
 
     email = models.EmailField(null=False, unique=True, help_text=dedent('''\
         The participant's work email address.  This is used as a key. '''))
@@ -103,6 +115,11 @@ class Participant(models.Model):
         blank=True,
         help_text=dedent('''Open comments from the participant's enrollment'''),
     )
+
+    def bump_expiration(self):
+        """Bump the expiration time for this participant, such as when making a substantive
+        change to the participant's record."""
+        self.expires = current_expiration()
 
     class Meta:
         db_table = "participants"
