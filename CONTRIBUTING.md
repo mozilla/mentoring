@@ -18,7 +18,13 @@ yarn install
 
 to install the dependencies.
 
-To build the frontend and prepare it for use in a browser, run
+If you ware working on a component (something in `frontend/src/components`), then you can use the storybook view to focus on only that component:
+
+```shell
+yarn storybool
+```
+
+To build the full frontend and prepare it for use in a browser (if you're working on views, or on the backend), run
 
 ```shell
 yarn dev

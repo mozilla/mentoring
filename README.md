@@ -10,9 +10,13 @@ This is the app behind the Mozilla Mentoring Program
   * [frontend](mentoring/frontend) - app to render the frontend
 * [frontend](./frontend) - main React project
 
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for information on how to develop and contribute to this app.
+
 ## Authentication
 
-This app uses Mozilla's SSO for authentication.
+In production, this app uses Mozilla's SSO for authentication.
 It requires an Auth0 client be created, with
  * Algorithm `RS256`
  * Redirect URI of `https://<hostname>/oidc/callback/` (note the trailing `/`)
