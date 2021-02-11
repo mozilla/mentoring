@@ -34,7 +34,7 @@ def login(client, email, admin=False):
     client.force_authenticate(user=user)
 
 
-class ParticipantTestAnonumous(TestCase):
+class ParticipantTestAnonymous(TestCase):
 
     def test_api_list_anonymous(self):
         particip = make_particip()
