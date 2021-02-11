@@ -266,7 +266,7 @@ export default function EnrollmentForm({ participant, update, onParticipantChang
                 disabled={!learner}
                 choices={CANNED_INTERESTS}
                 interests={participant.learner_interests}
-                onChange={setLearnerInterests} />
+                onInterestChange={setLearnerInterests} />
             </Grid>
             <Grid item xs={12} sm={6}>
               <InterestsControl
@@ -275,7 +275,7 @@ export default function EnrollmentForm({ participant, update, onParticipantChang
                 disabled={!mentor}
                 choices={CANNED_INTERESTS}
                 interests={participant.mentor_interests}
-                onChange={setMentorInterests} />
+                onInterestChange={setMentorInterests} />
             </Grid>
             <Grid item xs={12}>
               <TextField
