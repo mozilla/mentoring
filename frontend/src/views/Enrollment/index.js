@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import Grid from '@material-ui/core/Grid';
 import { useParticipantByEmail } from '../../data/participants';
-import AvailabilitySelector from '../../components/AvailabilitySelector';
+import { default as AvailabilitySelector, LOCAL_NINE_TO_FIVE } from '../../components/AvailabilitySelector';
 import Loading from '../../components/Loading';
 import EnrollmentForm from './EnrollmentForm';
 import PostedDialog from './PostedDialog';
@@ -22,7 +22,7 @@ export default function Enrollment({ role, update }) {
     manager_email: '',
     is_mentor: role === 'mentor',
     is_learner: role === 'learner' || Boolean(update),
-    time_availability: AvailabilitySelector.default(),
+    time_availability: LOCAL_NINE_TO_FIVE,
     org: '',
     org_level: '',
     time_at_org_level: '',

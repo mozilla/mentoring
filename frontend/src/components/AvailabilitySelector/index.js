@@ -31,6 +31,10 @@ const useStyles = makeStyles(theme => {
   };
 });
 
+// The timeAvailability representation for nine-to-five in the local timezone.  This
+// is suitable as a default value for the control.
+export const LOCAL_NINE_TO_FIVE = localToUtc('NNNNNNNNNYYYYYYYYNNNNNNN');
+
 // Allow the user to select their time_availability.  The timeAvailability
 // parameter is in the form of a 24-character string, containing `Y` or `N` in
 // each position, corresponding to the person's availability at that hour
@@ -45,7 +49,7 @@ export default function AvailabilitySelector({ timeAvailability, onChange }) {
   // if null or invalid, treat as 9-5 local time
   if (timeAvailability === null || timeAvailability.length !== 24) {
     console.error(`Invalid timeAvailability value ${timeAvailability}; substituting default`);
-    timeAvailability = AvailabilitySelector.default();
+    timeAvailability = LOCAL_NINE_TO_FIVE;
   }
 
   // translate the availability to local time by rotating the string
@@ -117,8 +121,3 @@ AvailabilitySelector.propTypes = {
   timeAvailability: propTypes.string,
   onChange: propTypes.func.isRequired,
 };
-
-// Get a default value for this component (which depends on the timezon)
-AvailabilitySelector.default = () => {
-  return localToUtc('NNNNNNNNNYYYYYYYYNNNNNNN');
-}
