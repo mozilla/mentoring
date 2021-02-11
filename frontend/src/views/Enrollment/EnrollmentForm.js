@@ -108,17 +108,17 @@ export default function EnrollmentForm({ participant, update, onParticipantChang
     });
   }
 
-  const setLearnerInterests = learner_interests => {
+  const setLearnerInterests = interests => {
     onParticipantChange({
       ...participant,
-      learner_interests,
+      learner_interests: interests,
     });
   };
 
-  const setMentorInterests = mentor_interests => {
+  const setMentorInterests = interests => {
     onParticipantChange({
       ...participant,
-      mentor_interests,
+      mentor_interests: interests,
     });
   };
 
