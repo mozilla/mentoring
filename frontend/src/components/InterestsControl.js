@@ -36,12 +36,12 @@ const useStyles = makeStyles(theme => {
 });
 
 // A control to support selection of participants' interests during (re-)enrollment
-export default function InterestsControl({ title, subheader, disabled, interests, choices, onChange }) {
+export default function InterestsControl({ title, subheader, disabled, interests, choices, onInterestChange }) {
   const classes = useStyles();
 
   const handleToggle = choice => {
     const checked = interests.indexOf(choice) !== -1;
-    onChange(checked ? interests.filter(i => i !== choice) : interests.concat([choice]));
+    onInterestChange(checked ? interests.filter(i => i !== choice) : interests.concat([choice]));
   };
 
   // the customInterests state tracks the set of interests that have been
@@ -58,10 +58,10 @@ export default function InterestsControl({ title, subheader, disabled, interests
     // update this value for the parent
     if (customInterest === '' && value !== '') {
       // add the new interest as soon as it exists
-      onChange(interests.concat([value]))
+      onInterestChange(interests.concat([value]))
     } else if (customInterest !== '' && value == '') {
       // remove the interest once it becomes an empty string
-      onChange(interests.slice(0, -1));
+      onInterestChange(interests.slice(0, -1));
     } else if (customInterest !== '' && value !== '') {
       // update the value in-place, regardless of whether our prop has been
       // updated yet
@@ -69,7 +69,7 @@ export default function InterestsControl({ title, subheader, disabled, interests
       if (ints.length > 0 && ints[ints.length - 1] == customInterest) {
         ints = ints.slice(0, -1);
       }
-      onChange(ints.concat([value]));
+      onInterestChange(ints.concat([value]));
     }
 
     setCustomInterest(value);
@@ -147,6 +147,6 @@ InterestsControl.propTypes = {
   interests: PropTypes.arrayOf(PropTypes.string).isRequired,
 
   // Callback when interests change
-  onChange: PropTypes.func.isRequired,
+  onInterestChange: PropTypes.func.isRequired,
 };
 

@@ -9,13 +9,13 @@ describe('InterestsControl', () => {
   const checkbox = label => screen.getByLabelText(label);
 
   test('displays contains checked interests from the given choices', () => {
-    render(<InterestsControl interests={['cats']} choices={choices} onChange={() => {}} />);
+    render(<InterestsControl interests={['cats']} choices={choices} onInterestChange={() => {}} />);
     expect(checkbox('cats')).toBeChecked();
     expect(checkbox('dogs')).not.toBeChecked();
   });
 
   test('displays checked interests not in the given choices', () => {
-    render(<InterestsControl interests={['rabbits']} choices={choices} onChange={() => {}} />);
+    render(<InterestsControl interests={['rabbits']} choices={choices} onInterestChange={() => {}} />);
     expect(checkbox('cats')).not.toBeChecked();
     expect(checkbox('dogs')).not.toBeChecked();
     expect(checkbox('rabbits')).toBeChecked();
@@ -23,9 +23,9 @@ describe('InterestsControl', () => {
 
   test('includes typed interests in the returned interests immediately', () => {
     let interests = ['cats'];
-    const onChange = i => interests = i;
+    const onInterestChange = i => interests = i;
 
-    render(<InterestsControl interests={interests} choices={choices} onChange={onChange} />);
+    render(<InterestsControl interests={interests} choices={choices} onInterestChange={onInterestChange} />);
     userEvent.type(screen.getByLabelText('other'), 'horses');
     expect(interests).toEqual(['cats', 'horses']);
   });
