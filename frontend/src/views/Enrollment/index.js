@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import Grid from '@material-ui/core/Grid';
 import { useParticipantByEmail } from '../../data/participants';
-import { default as AvailabilitySelector, LOCAL_NINE_TO_FIVE } from '../../components/AvailabilitySelector';
+import { LOCAL_NINE_TO_FIVE } from '../../components/AvailabilitySelector';
 import Loading from '../../components/Loading';
 import EnrollmentForm from './EnrollmentForm';
 import PostedDialog from './PostedDialog';
