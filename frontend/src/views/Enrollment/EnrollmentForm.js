@@ -254,7 +254,7 @@ export default function EnrollmentForm({ participant, update, onParticipantChang
                 disabled={!learner}
                 required={learner}
                 select
-                helperText="Are you considering change track (such as between IC and management)?" >
+                helperText={learner ? "Are you considering change track, such as between IC and management?" : "(learners only)"} >
                 {menuItems(TRACK_CHANGE_INTEREST)}
               </TextField>
             </Grid>
@@ -262,7 +262,7 @@ export default function EnrollmentForm({ participant, update, onParticipantChang
             <Grid item xs={12} sm={6}>
               <InterestsControl
                 title="Mentor Interests"
-                subheader="Select the topics on which you can offer mentorship"
+                subheader={mentor ? "Select the topics on which you can offer mentorship" : "(mentors only)"}
                 disabled={!mentor}
                 choices={CANNED_INTERESTS}
                 interests={participant.mentor_interests}
@@ -271,7 +271,7 @@ export default function EnrollmentForm({ participant, update, onParticipantChang
             <Grid item xs={12} sm={6}>
               <InterestsControl
                 title="Learner Interests"
-                subheader="Select the topics where you are interested in improving"
+                subheader={learner ? "Select the topics where you are interested in improving" : "(learners only)"}
                 disabled={!learner}
                 choices={CANNED_INTERESTS}
                 interests={participant.learner_interests}

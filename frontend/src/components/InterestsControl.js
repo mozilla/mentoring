@@ -83,9 +83,12 @@ export default function InterestsControl({ title, subheader, disabled, interests
     setCustomInterest('');
   };
 
+  // select a color for text appropriate to the disabled/enabled state
+  const color = disabled ? "textSecondary" : "textPrimary";
+
   return (
     <Box className={classes.outlined}>
-      {title && <Typography className={classes.header} display="block" variant="body1">{title}</Typography>}
+      {title && <Typography className={classes.header} display="block" color={color} variant="body1" > {title} </Typography>}
       {subheader && <Typography className={classes.header} display="block" variant="caption" color="textSecondary">{subheader}</Typography>}
       <List dense>
         {choices.concat(customInterests).map(interest => (
@@ -104,7 +107,9 @@ export default function InterestsControl({ title, subheader, disabled, interests
                 inputProps={{ 'aria-label': interest }}
               />
             </ListItemIcon>
-            <ListItemText primary={interest} />
+            <ListItemText
+              primary={interest}
+              primaryTypographyProps={{ color }} />
           </ListItem>
         ))}
         <ListItem>
