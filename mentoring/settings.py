@@ -15,7 +15,6 @@ class Base(Configuration):
         'mentoring.frontend.apps.FrontendConfig',
         'django.contrib.admin',
         'django.contrib.auth',
-        'mozilla_django_oidc',
         'django.contrib.contenttypes',
         'django.contrib.sessions',
         'django.contrib.messages',
@@ -108,6 +107,9 @@ class Production(Base):
 
     SECRET_KEY = values.Value(environ_required=True)
 
+    # require DJANGO_ALLOWED_HOSTS
+    ALLOWED_HOSTS = values.ListValue(environ_required=True)
+
     # days to retain participant data
     DATA_RETENTION_DAYS = 180
 
@@ -131,7 +133,7 @@ class Production(Base):
 
     # Members of these Mozilla SSO groups will be Django staff, able to do everything;
     # this capability is given to committee members.
-    STAFF_GROUPS = ['mozilliansorg_mentoring-committee']
+    STAFF_GROUPS = values.ListValue(environ_required=True)
 
     # security settings
     SECURE_HSTS_SECONDS = 3600
