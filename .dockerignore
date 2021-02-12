@@ -1,0 +1,6 @@
+.git
+**/db.sqlite3
+**/__pycache__/
+static/frontend/
+sandbox/
+**/node_modules/
