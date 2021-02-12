@@ -261,21 +261,21 @@ export default function EnrollmentForm({ participant, update, onParticipantChang
             <Grid item sm={6} />
             <Grid item xs={12} sm={6}>
               <InterestsControl
-                title="Learner Interests"
-                subheader="Select the topics where you are interested in improving"
-                disabled={!learner}
-                choices={CANNED_INTERESTS}
-                interests={participant.learner_interests}
-                onInterestChange={setLearnerInterests} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <InterestsControl
                 title="Mentor Interests"
                 subheader="Select the topics on which you can offer mentorship"
                 disabled={!mentor}
                 choices={CANNED_INTERESTS}
                 interests={participant.mentor_interests}
                 onInterestChange={setMentorInterests} />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <InterestsControl
+                title="Learner Interests"
+                subheader="Select the topics where you are interested in improving"
+                disabled={!learner}
+                choices={CANNED_INTERESTS}
+                interests={participant.learner_interests}
+                onInterestChange={setLearnerInterests} />
             </Grid>
             <Grid item xs={12}>
               <TextField
