@@ -3,7 +3,7 @@ import useAxios from 'axios-hooks'
 // Return [{loading, error, data}, refetch] where data is the
 // full set of current pairs
 export function usePairs() {
-  return useAxios('/api/pairs');
+  return useAxios('/api/pairs', { useCache: false });
 }
 
 // Return [{loading, error}, postPairing] where
@@ -14,5 +14,5 @@ export function usePostPairing() {
     url: '/api/pairs',
     method: 'POST',
     headers: { 'X-CSRFToken': MENTORING_SETTINGS.csrftoken },
-  }, { manual: true });
+  }, { manual: true, useCache: false });
 }
