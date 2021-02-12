@@ -4,14 +4,16 @@ import propTypes from 'prop-types';
 // Return [{loading, error, data}, refetch] where data is the full set
 // of current participants
 export function useParticipants() {
-  return useAxios('/api/participants');
+  return useAxios('/api/participants', { useCache: false });
 }
 
 // Return [{loading, error, participant}], fetching the
 // participant by email address.  If the response is a 404,
 // the result is [{loading: false, error: null, participant: null}].
 export function useParticipantByEmail(email) {
-  const [{ loading, error, data: participant }] = useAxios(`/api/participants/by_email?email=${encodeURIComponent(email)}`);
+  const [{ loading, error, data: participant }] = useAxios(
+    `/api/participants/by_email?email=${encodeURIComponent(email)}`,
+    { useCache: false });
   if (error?.response?.status === 404) {
     return [{ loading: false, error: null, participant: null }];
   }
@@ -35,7 +37,7 @@ export function usePostParticipant(participant) {
     }),
     data,
     headers: { 'X-CSRFToken': MENTORING_SETTINGS.csrftoken },
-  }, { manual: true });
+  }, { manual: true, useCache: false });
 }
 
 // a propTypes shape describing the data expected from the API
