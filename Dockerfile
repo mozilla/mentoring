@@ -20,7 +20,7 @@ MAINTAINER ${MAINTAINER}
 
 COPY mentoring/ /app/mentoring
 COPY static/ /app/static
-COPY manage.py setup.cfg requirements.txt /app/
+COPY manage.py setup.cfg requirements.txt run-prod.sh /app/
 COPY --from=frontend /static/frontend /app/static/frontend
 
 WORKDIR /app
@@ -32,4 +32,4 @@ RUN pip install -U pip && \
 EXPOSE 8000
 ENV DJANGO_CONFIGURATION=Production
 
-ENTRYPOINT ["python", "manage.py"]
+CMD /app/run-prod.sh
