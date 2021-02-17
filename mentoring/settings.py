@@ -135,6 +135,9 @@ class Production(Base):
     # this capability is given to committee members.
     STAFF_GROUPS = values.ListValue(environ_required=True)
 
+    # determine the database configuration from DATABASE_URL
+    DATABASES = values.DatabaseURLValue()
+
     # security settings
     SECURE_HSTS_SECONDS = 3600
     SECURE_SSL_REDIRECT = True
