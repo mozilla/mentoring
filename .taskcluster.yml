@@ -41,6 +41,16 @@ tasks:
           command: >-
             pip install pycodestyle &&
             pycodestyle ./mentoring
+        - name: pip-tools
+          image: python:3.9
+          command: >-
+            pip install pip-tools &&
+            ./pipupdate.sh &&
+            if ! output=$(git status --porcelain) || [ -n "$output" ]; then
+                echo "*** ./pipupdate.sh produced changes to the repository; these changes should be checked in ***";
+                git --no-pager diff;
+                exit 1;
+            fi
       each(opts):
         provisionerId: 'proj-misc'
         workerType: 'ci'
