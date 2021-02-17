@@ -26,6 +26,12 @@ Commands given to the docker image are passed to `manage.py`, so for example `do
 
 Like any 12-factor app, the docker image takes its configuration as environment variables.
 
+### Database
+
+This application requires a backend database.
+In development, it automatically uses a SQLite database, and in production it expects a Postgres database.
+Pass a URL for that database, of the form `postgres://USER:PASSWORD@HOST:PORT/NAME`, in environment variable `DATABASE_URL`.
+
 ### Secrets
 
 The following environment variables should be set to suitably random strings used to protect data via one-way hashes:
