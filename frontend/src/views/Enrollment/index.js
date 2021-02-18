@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { useParticipantByEmail } from '../../data/participants';
 import { LOCAL_NINE_TO_FIVE } from '../../components/AvailabilitySelector';
 import Loading from '../../components/Loading';
+import ErrorDialog from '../../components/ErrorDialog';
 import EnrollmentForm from './EnrollmentForm';
 import PostedDialog from './PostedDialog';
 import { participantType, usePostParticipant } from '../../data/participants';
@@ -51,8 +52,10 @@ function WithLoadedParticipant({ update, initialParticipant }) {
   const [participant, setParticipant] = useState(initialParticipant);
   const [{loading: postLoading, error: postError}, postParticipant] = usePostParticipant(participant);
   const [posted, setPosted] = useState(false);
+  const [postErrorDismissed, setPostErrorDismissed] = useState(false);
 
   const handleSubmit = event => {
+    setPostErrorDismissed(false);
     postParticipant().then(
       () => setPosted(true),
       // errors are reported via postError, so ignore them here
@@ -60,17 +63,12 @@ function WithLoadedParticipant({ update, initialParticipant }) {
     event.preventDefault();
   };
 
-  if (postError) {
-    return (
-      <div>
-        <h2>Error</h2>
-        <pre>{postError.toString()}</pre>
-      </div>
-    );
-  }
+  const handleRetry = () => setPostErrorDismissed(true);
+  const showErrorDialog = postError && !postErrorDismissed;
 
   return (
     <Fragment>
+      {showErrorDialog && <ErrorDialog error={postError} onRetry={handleRetry} />}
       <Helmet>
         <title>Mozilla Mentorship Program - Enrollment</title>
       </Helmet>
