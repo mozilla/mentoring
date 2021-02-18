@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import PropTypes from 'prop-types';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import ErrorDialog from './ErrorDialog';
 
 // Show a spinner if any of the array of loads are still loading, or an error
 // if the load fails; otherwise show children.  errorOnly is similar, but ignoring
@@ -8,12 +9,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 export default function Loading({ children, loads, errorOnly }) {
   for (let {error} of loads.concat(errorOnly || [])) {
     if (error) {
-      return (
-        <div>
-          <h2>Error</h2>
-          <pre>{error.toString()}</pre>
-        </div>
-      );
+      return <ErrorDialog error={error} />;
     }
   }
 
