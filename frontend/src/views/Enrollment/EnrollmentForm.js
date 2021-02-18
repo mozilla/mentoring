@@ -140,6 +140,10 @@ export default function EnrollmentForm({ participant, update, onParticipantChang
     ({ key, text }) => <MenuItem key={key} value={key}>{text}</MenuItem>
   );
 
+  // determine whether the manager_email property is valid.  This is a much simpler
+  // regex than Django applies, but will filter out common mistakes.
+  const managerEmailValid = participant.manager_email.length === 0 || participant.manager_email.match(/^[^@]+@[a-z0-9.-]+/);
+
   return (
     <form onSubmit={onSubmit}>
       <Snackbar
@@ -205,6 +209,7 @@ export default function EnrollmentForm({ participant, update, onParticipantChang
             <Grid item xs={12} sm={6}>
               <TextField
                 {...textFieldProps('manager_email')}
+                error={!managerEmailValid}
                 helperText="Your manager's email" />
             </Grid>
             <Grid item xs={12}>
