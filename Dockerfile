@@ -30,6 +30,5 @@ RUN pip install -U pip && \
     python -m compileall ./mentoring/
 
 EXPOSE 8000
-ENV DJANGO_CONFIGURATION=Production
 
 CMD /app/run-prod.sh
