@@ -140,7 +140,6 @@ class Production(Base):
 
     # security settings
     SECURE_HSTS_SECONDS = 3600
-    SECURE_SSL_REDIRECT = True
     SECURE_REFERRER_POLICY = 'same-origin'
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SESSION_COOKIE_SECURE = 1  # Set that the cookie should only be sent on https
