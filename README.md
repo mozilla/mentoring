@@ -65,5 +65,5 @@ Those who are not staff have access only to the enrollment form.
 # Deploy to Production
 Deploying to production can be done by creating a new "Release" in GitHub from [here](https://github.com/mozilla/mentoring/releases) and tagging it with a semversion tag, for example `0.1.2`.
 
-Behind the scenes the new Release will trigger [this](https://github.com/mozilla/mentoring/tree/main/.github/workflows/docker.yaml) Github CI job. The job builds and pushes a Docker container based on [this Dockerfile]((https://github.com/mozilla/mentoring/tree/main/Dockerfile) into a private ECR repo.
+Behind the scenes the new Release will trigger [this](https://github.com/mozilla/mentoring/tree/main/.github/workflows/docker.yaml) Github CI job. The job builds and pushes a Docker container based on [this Dockerfile](https://github.com/mozilla/mentoring/tree/main/Dockerfile) into a private ECR repo.
 Running alongside this application there's a service watching the ECR repository, and deploying any new container tagged with a semversion.
