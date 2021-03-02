@@ -52,6 +52,7 @@ It requires an Auth0 client be created, with
  * At least the Mozilla AD connection enabled ("Allowing Mozilla LDAP with MFA")
 
 Set `DJANGO_OIDC_RP_CLIENT_ID` `DJANGO_OIDC_RP_CLIENT_SECRET` using the resulting credentials.
+Set `DJANGO_OIDC_AUTHENTICATION_CALLBACK_URL` to `https://<hostname>/oidc/callback` where `<hostname>` is the hostname on which the site appears.
 
 The UI automatically redirects to the sign-in URL.
 There is no way to interact with the UI without first signing in.
