@@ -10,19 +10,7 @@
     <!-- React will load here -->
 </div>
 </body>
-{% csrf_token %}
-<script>
-const MENTORING_SETTINGS = {
-  csrftoken: document.querySelector('[name=csrfmiddlewaretoken]').value,
-  user: {
-    username: "{{ user.username }}",
-    email: "{{ user.email }}",
-    first_name: "{{ user.first_name }}",
-    last_name: "{{ user.last_name }}",
-    is_staff: "{{ user.is_staff }}" === "True",
-  },
-};
-</script>
+<script src="/settings.js"></script>
 {% load static %}
 <script src="{% static "frontend/main.js" %}"></script>
 </html>
