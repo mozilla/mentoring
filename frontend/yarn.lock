@@ -1004,14 +1004,7 @@
     core-js-pure "^3.0.0"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@7.12.5":
-  version "7.12.5"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
-  integrity sha512-plcc+hbExy3McchJCEQG3knOsuh3HH+Prx1P6cLIkET/0dLuQDEnrT+s27Axgc9bqfsmNUNHfscgMUdBpC9xfg==
-  dependencies:
-    regenerator-runtime "^0.13.4"
-
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.2", "@babel/runtime@^7.12.1", "@babel/runtime@^7.12.5", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
+"@babel/runtime@7.13.9", "@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.2", "@babel/runtime@^7.12.1", "@babel/runtime@^7.12.5", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
   version "7.13.9"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.13.9.tgz#97dbe2116e2630c489f22e0656decd60aaa1fcee"
   integrity sha512-aY2kU+xgJ3dJ1eU6FMB9EH8dIe8dmusF1xEku52joLvw6eAFN0AI+WxCLDnpev2LEejWBAy2sBvBOBAjI3zmvA==
@@ -3294,11 +3287,11 @@ axios-hooks-mock@^1.1.0:
     querystring "^0.2.0"
 
 axios-hooks@^2.1.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/axios-hooks/-/axios-hooks-2.3.0.tgz#2e728e5c75fd59c5300168dd94017bb6d1ffc517"
-  integrity sha512-YAmsXIC6E/Uevz8pdaHDfCPLl/o83TCFiueZMdKgVSDcpuy7mMz1cm85JuANibYMgl0Fqx8SENLfjtG22QX30Q==
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/axios-hooks/-/axios-hooks-2.4.1.tgz#64979ca23f178bb073e0869ed47f9f16188b27dc"
+  integrity sha512-m7PV0BpF0R+twdYpkHbY3DD8vAJ4GPkYiw8+NAczw0I/ubzyNV40535yHDYFZiXlJDahKsP3lGzVYQaSIXzweA==
   dependencies:
-    "@babel/runtime" "7.12.5"
+    "@babel/runtime" "7.13.9"
     lru-cache "6.0.0"
 
 axios@^0.21.1:
