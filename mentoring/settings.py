@@ -101,6 +101,9 @@ class Base(Configuration):
     # (even in dev, this is useful if using a tunnel service)
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
+    # Limit the request body to a reasonable size
+    DATA_UPLOAD_MAX_MEMORY_SIZE = 500 * 1024
+
 
 class Production(Base):
     DEBUG = False
