@@ -132,9 +132,14 @@ class Production(Base):
     OIDC_AUTHENTICATION_CALLBACK_URL = values.Value(environ_required=True)
     OIDC_RP_SCOPES = "openid email profile"
 
-    # Members of these Mozilla SSO groups will be Django staff, able to do everything;
+    # Members of these Mozilla SSO groups will be Django staff, able to perform pairing;
     # this capability is given to committee members.
     STAFF_GROUPS = values.ListValue(environ_required=True)
+
+    # Members of these Mozilla SSO groups will be Django superusers, able to do
+    # everything; this capability should be given to a subset of committee
+    # members who can use the power safely
+    ADMIN_GROUPS = values.ListValue(environ_required=True)
 
     # determine the database configuration from DATABASE_URL
     DATABASES = values.DatabaseURLValue()
