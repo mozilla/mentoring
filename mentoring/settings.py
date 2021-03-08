@@ -89,7 +89,8 @@ class Base(Configuration):
     # content security policy
     CSP_DEFAULT_SRC = ["'self'"]
     CSP_FONT_SRC = ["'self'", "https://fonts.gstatic.com"]
-    CSP_STYLE_SRC = ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"]
+    CSP_STYLE_SRC = ["'self'", "https://fonts.googleapis.com"]
+    CSP_INCLUDE_NONCE_IN = ['style-src']
 
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/3.1/howto/static-files/
