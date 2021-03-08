@@ -1,4 +1,6 @@
+import json
 from django.shortcuts import render
+from django.http import HttpResponse
 from django.contrib.auth.decorators import user_passes_test
 
 
@@ -7,3 +9,24 @@ from django.contrib.auth.decorators import user_passes_test
 @user_passes_test(lambda user: user.is_authenticated)
 def root(request):
     return render(request, 'frontend/root.html', {})
+
+
+# Pass some settings off to the browser for use in the UI
+@user_passes_test(lambda user: user.is_authenticated)
+def settings(request):
+    user = request.user
+    settings = {
+        "csrftoken": "uhh",  # TODO: get from cookie - https://docs.djangoproject.com/en/3.1/ref/csrf/
+        "user": {
+            "username": user.username,
+            "email": user.email,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "is_staff": user.is_staff,
+        },
+    }
+    resp = HttpResponse(
+        f'const MENTORING_SETTINGS = {json.dumps(settings, indent=4)};',
+        content_type='application/javascript')
+    resp['Content-Disposition'] = 'inline; filename="settings.js"'
+    return resp

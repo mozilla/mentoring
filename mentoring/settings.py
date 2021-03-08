@@ -87,8 +87,7 @@ class Base(Configuration):
     USE_TZ = True
 
     # content security policy
-    CSP_DEFAULT_SRC = ["'self'", "'unsafe-inline'"]
-    # For development builds of the react app (`yarn dev`, not `yarn build`), eval is needed
+    CSP_DEFAULT_SRC = ["'self'"]
     CSP_FONT_SRC = ["'self'", "https://fonts.gstatic.com"]
     CSP_STYLE_SRC = ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"]
 
