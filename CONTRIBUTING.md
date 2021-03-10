@@ -87,7 +87,8 @@ Starting development server at http://127.0.0.1:8000/
 
 and you can access the server at that URL.
 Sign in as the new superuser you have created.
-From there, you can create a new non-superuser via the DB admin page, if you would like.
+From there, you can create a new non-superuser via the Django admin page, if you would like.
+The admin page is available at `/admin`, which must be entered manually.
 
 To run the backend tests,
 ```shell
