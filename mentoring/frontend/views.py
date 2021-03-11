@@ -2,6 +2,7 @@ import json
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import user_passes_test
+from django.middleware.csrf import get_token
 
 
 # Check that a user is authenticated; this automatically redirects un-authenticated
@@ -16,7 +17,7 @@ def root(request):
 def settings(request):
     user = request.user
     settings = {
-        "csrftoken": "uhh",  # TODO: get from cookie - https://docs.djangoproject.com/en/3.1/ref/csrf/
+        "csrftoken": get_token(request),
         "user": {
             "username": user.username,
             "email": user.email,
