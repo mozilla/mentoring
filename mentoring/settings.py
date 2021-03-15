@@ -154,6 +154,14 @@ class Production(Base):
     SESSION_COOKIE_SECURE = 1  # Set that the cookie should only be sent on https
     CSRF_COOKIE_SECURE = 1  # Same for CSRF cookies
 
+    REST_FRAMEWORK = {
+        **Base.REST_FRAMEWORK,
+        'DEFAULT_RENDERER_CLASSES': (
+            # only render the JSON views in production
+            'rest_framework.renderers.JSONRenderer',
+        )
+    }
+
 
 class Development(Base):
     DEBUG = True
