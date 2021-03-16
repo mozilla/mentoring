@@ -87,10 +87,10 @@ class Base(Configuration):
     USE_TZ = True
 
     # content security policy
-    CSP_DEFAULT_SRC = ["'self'", "'unsafe-inline'"]
-    # For development builds of the react app (`yarn dev`, not `yarn build`), eval is needed
+    CSP_DEFAULT_SRC = ["'self'"]
     CSP_FONT_SRC = ["'self'", "https://fonts.gstatic.com"]
-    CSP_STYLE_SRC = ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"]
+    CSP_STYLE_SRC = ["'self'", "https://fonts.googleapis.com"]
+    CSP_INCLUDE_NONCE_IN = ['style-src']
 
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -100,6 +100,9 @@ class Base(Configuration):
     # Trust X-Forwarded-Proto to signify a secure connection
     # (even in dev, this is useful if using a tunnel service)
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+    # Limit the request body to a reasonable size
+    DATA_UPLOAD_MAX_MEMORY_SIZE = 500 * 1024
 
 
 class Production(Base):
@@ -132,9 +135,14 @@ class Production(Base):
     OIDC_AUTHENTICATION_CALLBACK_URL = values.Value(environ_required=True)
     OIDC_RP_SCOPES = "openid email profile"
 
-    # Members of these Mozilla SSO groups will be Django staff, able to do everything;
+    # Members of these Mozilla SSO groups will be Django staff, able to perform pairing;
     # this capability is given to committee members.
     STAFF_GROUPS = values.ListValue(environ_required=True)
+
+    # Members of these Mozilla SSO groups will be Django superusers, able to do
+    # everything; this capability should be given to a subset of committee
+    # members who can use the power safely
+    ADMIN_GROUPS = values.ListValue(environ_required=True)
 
     # determine the database configuration from DATABASE_URL
     DATABASES = values.DatabaseURLValue()
@@ -145,6 +153,14 @@ class Production(Base):
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SESSION_COOKIE_SECURE = 1  # Set that the cookie should only be sent on https
     CSRF_COOKIE_SECURE = 1  # Same for CSRF cookies
+
+    REST_FRAMEWORK = {
+        **Base.REST_FRAMEWORK,
+        'DEFAULT_RENDERER_CLASSES': (
+            # only render the JSON views in production
+            'rest_framework.renderers.JSONRenderer',
+        )
+    }
 
 
 class Development(Base):

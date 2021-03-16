@@ -59,11 +59,16 @@ There is no way to interact with the UI without first signing in.
 Signing in creates a Django user and remaining authentication is performed using a Django session.
 
 Members of People API groups listed in `DJANGO_STAFF_GROUPS` (comma-separated) have "staff" access to the app.
-This grants access to the REST API (`/api`) and the Django administration panel (`/admin/`).
+This grants access to the REST API (`/api`) for pairing and other committee- activities.
 This should be set to a group containing the Mentoring committee members, e.g., `mozilliansorg_mentoring-committee`.
-Those who are not staff have access only to the enrollment form.
+
+The `DJANGO_ADMIN_GROUPS` setting controls admin access, which includes staff permissions as well as access to the Django administration panel (`/admin/`).
+This should be given to the subset of the committee that might need to make ad-hoc modifications to the database, and be capable of doing so safely
+
+Those who are not staff or admins have access only to the enrollment form.
 
 # Deploy to Production
+
 Deploying to production can be done by creating a new "Release" in GitHub from [here](https://github.com/mozilla/mentoring/releases) and tagging it with a semversion tag, for example `0.1.2`.
 
 Behind the scenes the new Release will trigger [this](https://github.com/mozilla/mentoring/tree/main/.github/workflows/docker.yaml) Github CI job. The job builds and pushes a Docker container based on [this Dockerfile](https://github.com/mozilla/mentoring/tree/main/Dockerfile) into a private ECR repo.
