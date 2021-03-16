@@ -101,10 +101,9 @@ idna==2.10 \
     --hash=sha256:b307872f855b18632ce0c21c5e45be78c0ea7ae4c15c828c20788b26921eb3f6 \
     --hash=sha256:b97d804b1e9b523befed77c48dacec60e6dcb0b5391d57af6a65a312a90648c0
     # via requests
-josepy==1.7.0 \
-    --hash=sha256:84c9d202093236fddbfaefc3137a476a9863d43c054268863a9d6727a22f1317 \
-    --hash=sha256:d265414fa16d7a8b7a1d1833b4ebb19a22bd0deae5d44413cf9040fd8491d85a
-    # via mozilla-django-oidc
+josepy==1.8.0 \
+    --hash=sha256:6d632fcdaf0bed09e33f81f13b10575d4f0b7c37319350b725454e04a41e6a49 \
+    --hash=sha256:a5a182eb499665d99e7ec54bb3fe389f9cbc483d429c9651f20384ba29564269
 mozilla-django-oidc==1.2.4 \
     --hash=sha256:6f1064ec35c0dc42a7f6487e8649c9b51db04df52c424f48ebad6fe35e7481c8 \
     --hash=sha256:a5130790bc71096b864d67486bbdabbbd4efc9bf1a755fb50d1f51891c11f423
