@@ -9,20 +9,22 @@ import django.views.defaults
 from . import rest
 
 urlpatterns = [
-    # the Django admin
-    path('admin/', admin.site.urls),
     # the API
     path('api/', include(rest.router.urls)),
     # oidc authentication
     path('oidc/', include('mozilla_django_oidc.urls')),
-
-    # if (and only if) we are in DEBUG mode (meaning Development), we allow
-    # users to sign in using simple Django auth
-] + ([path('accounts/', include('django.contrib.auth.urls'))] if settings.DEBUG else []) + [
-
-    # ..and anything else (that is not api/..) renders the frontend
-    re_path('^(?!api/)', include('mentoring.frontend.urls')),
 ]
+
+# if (and only if) we are in DEBUG mode (meaning Development), we allow
+# users to sign in using simple Django auth, and access the admin panel
+if settings.DEBUG:
+    urlpatterns.extend([
+        path('accounts/', include('django.contrib.auth.urls')),
+        path('admin/', admin.site.urls),
+    ])
+
+# as a last option, anything else (that's not api/) renders the frontend
+urlpatterns.append(re_path('^(?!api/)', include('mentoring.frontend.urls')))
 
 # ERROR HANDLING
 #

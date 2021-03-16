@@ -8,7 +8,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AccountMultipleCheckIcon from 'mdi-react/AccountMultipleCheckIcon';
-import DatabaseIcon from 'mdi-react/DatabaseIcon';
 import ApiIcon from 'mdi-react/ApiIcon';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -48,10 +47,6 @@ export default function Home() {
         <ListItem button onClick={() => history.push("/pairing")}>
           <ListItemIcon><AccountMultipleCheckIcon /></ListItemIcon>
           <ListItemText primary="Make Pairings"/>
-        </ListItem>
-        <ListItem button component="a" href="/admin/">
-          <ListItemIcon><DatabaseIcon /></ListItemIcon>
-          <ListItemText primary="DB Admin Panel"/>
         </ListItem>
         <ListItem button component="a" href="/api/">
           <ListItemIcon><ApiIcon /></ListItemIcon>
