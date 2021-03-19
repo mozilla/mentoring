@@ -104,6 +104,7 @@ idna==2.10 \
 josepy==1.8.0 \
     --hash=sha256:6d632fcdaf0bed09e33f81f13b10575d4f0b7c37319350b725454e04a41e6a49 \
     --hash=sha256:a5a182eb499665d99e7ec54bb3fe389f9cbc483d429c9651f20384ba29564269
+    # via mozilla-django-oidc
 mozilla-django-oidc==1.2.4 \
     --hash=sha256:6f1064ec35c0dc42a7f6487e8649c9b51db04df52c424f48ebad6fe35e7481c8 \
     --hash=sha256:a5130790bc71096b864d67486bbdabbbd4efc9bf1a755fb50d1f51891c11f423
@@ -148,7 +149,6 @@ six==1.15.0 \
     --hash=sha256:8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced
     # via
     #   django-configurations
-    #   josepy
     #   mozilla-django-oidc
     #   pyopenssl
 sqlparse==0.4.1 \
