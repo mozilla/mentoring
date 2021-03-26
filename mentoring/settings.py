@@ -132,7 +132,6 @@ class Production(Base):
     OIDC_OP_TOKEN_ENDPOINT = "https://auth.mozilla.auth0.com/oauth/token"
     OIDC_OP_USER_ENDPOINT = "https://auth.mozilla.auth0.com/userinfo"
     OIDC_OP_AUTHORIZATION_ENDPOINT = "https://auth.mozilla.auth0.com/authorize"
-    OIDC_AUTHENTICATION_CALLBACK_URL = values.Value(environ_required=True)
     OIDC_RP_SCOPES = "openid email profile"
 
     # Members of these Mozilla SSO groups will be Django staff, able to perform pairing;
