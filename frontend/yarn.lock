@@ -3533,9 +3533,9 @@ axios-hooks-mock@^1.1.0:
     querystring "^0.2.0"
 
 axios-hooks@^2.1.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/axios-hooks/-/axios-hooks-2.6.0.tgz#8944f253e888816357c7a30532fc8b35205deaf8"
-  integrity sha512-YZihmWDXHMtHgkoBmwnBfaD1zzmsdgsCPdvwOtqXcuS4lz/bFJvBvQqPPobV7sHsh1q5KKtdgrk7rLmvJ9iD9Q==
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/axios-hooks/-/axios-hooks-2.6.1.tgz#d3f6f189393dbd59bccb9df987c677eacf780531"
+  integrity sha512-kWKospLWi99EqAX07aq8ZuloEtcP5Mskt0PL/j6ZHoN5oOY8P2F0ljnKh8e8qAcq1brG3atSV31Mb5pUJlZdPg==
   dependencies:
     "@babel/runtime" "7.13.10"
     dequal "2.0.2"
