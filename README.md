@@ -1,3 +1,5 @@
+ARCHIVED: this project is archived, pending renewal of the Mozilla Mentoring Program.
+
 # mentoring
 
 This is the app behind the Mozilla Mentoring Program
